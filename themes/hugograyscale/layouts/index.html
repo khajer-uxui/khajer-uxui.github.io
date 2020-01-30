@@ -1,0 +1,240 @@
+{{- define "main" -}}
+    {{- $.Scratch.Set "reference" "reference" -}}
+    {{- $.Scratch.Set "tools" "tools" -}}
+    {{- $.Scratch.Set "video" "video" -}}
+    {{- range $pagesect := (slice "reference" "tools"  "video") -}}
+        {{- if isset $.Params $pagesect -}}
+          {{- $param_pagesect := index $.Params $pagesect -}}
+          {{- if isset $param_pagesect "rename" -}}
+              {{- $.Scratch.Set $pagesect (index $param_pagesect "rename") -}}
+          {{- end -}}
+        {{- end -}}
+    {{- end -}}
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger improve-contrast-box" href="#page-top">{{ $.Params.title }}</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            {{- range $pagesect := ( slice "reference" "tools" "video" ) -}}
+              {{- if isset $.Params $pagesect -}}
+                <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger improve-contrast-box" href="#{{ $.Scratch.Get $pagesect }}">{{- $.Scratch.Get $pagesect -}}</a>
+                </li>
+              {{- end -}}
+            {{- end -}}
+            {{- if isset $.Params "menu" -}}
+              {{- range $menuitem := $.Params.menu -}}
+                <li class="nav-item">
+                  <a class="nav-link js-scroll-trigger improve-contrast-box" href="{{ $menuitem.url | safeHTML }}">{{- default $menuitem.url $menuitem.name | safeHTML -}}</a>
+                </li>
+              {{- end -}}
+            {{- end -}}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Intro Header -->
+    {{- if isset $.Params "intro" -}}
+    <header class="masthead">
+      <div class="intro-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <div class="improve-contrast-box">
+                <h1 class="brand-heading">{{ default "" $.Params.intro.header | safeHTML }}</h1>
+                <p class="intro-text">{{- default "" $.Params.intro.text | safeHTML -}}</p>
+              </div>
+              <a href="#{{ .Scratch.Get "reference" }}" class="btn btn-circle js-scroll-trigger">
+                <i class="fa fa-angle-double-down animated"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    {{ end }}
+
+    <!-- reference Section -->
+    {{- if isset $.Params "reference" -}}
+    <section id="{{ .Scratch.Get "reference" }}" class="content-section text-center">
+      <div class="container">
+        <div class="col-lg-8 mx-auto">
+            <div>
+              <h2>{{- default "" $.Params.reference.header | safeHTML -}}</h2>
+              <p>For when you need to look something up, or cite something to support a recommendation.</p>
+
+              <h3>Sources</h3>
+
+              <ul>
+                <li><a href="https://www.nngroup.com/">nnGroup</a></li>
+                <li><a href="https://www.invisionapp.com/inside-design/">InVision blog</a></li>
+                <li><a href="https://99u.adobe.com/">99u by Adobe</a></li>
+                <li><a href="https://www.smashingmagazine.com/">Smashing Magazine</a></li>
+                <li><a href="https://journal.jabian.com/">Jabian Journal</a></li>
+              </ul>
+
+              <h3>Mostly Articles</h3>
+              <ul>
+                <li><a href="http://www.designkit.org/">IDEO design kit, including <em>A Field Guide to Human-Centred Design</em></a></li>
+                <li><a href="http://gamestorming.com/">Gamestorming</a></li>
+                <li><a href="http://strategyzer.com/">Strategyzer</a></li>
+                <li><a href="https://www.wired.com/story/the-noisy-fallacies-of-psychographic-targeting/">The Noisy Fallacies of Psychographic Targeting</a></li>
+                <li><a href="https://www.ideatheorem.com/insights/ux-guidelines-for-fintech/">UX Guidelines for FinTech</a></li>
+                <li><a href="http://braintraffic.com/blog/new-thinking-brain-traffics-content-strategy-quad">New Thinking: Brain Traffic’s Content Strategy Quad</a></li>
+          
+                <li><a href="https://uxmag.com/articles/content-strategy-and-ux-a-modern-love-story">Content Strategy & UX</a></li>
+                <li><a href="http://alistapart.com/article/aligning-content-work-with-agile-processes">Aligning Content Work with Agile Processes</a></li>
+          
+                <li><a href="https://gathercontent.com/resources/content-strategy-a-guide-for-ux-designers">Content Strategy Guide for UX Designers</a></li>
+          
+                <li><a href="https://www.gov.uk/service-manual/agile-delivery/writing-user-stories">Writing User Stories</a></li>
+                <li><a href="https://alistapart.com/article/content-modelling-a-master-skill">Content Modelling: A Master Skill</a></li>
+                <li><a href="https://www.protofuse.com/blog/details/website-wireframing-helps-plan-better-content/">5 Ways Wireframing Helps You Plan For Better Content</a></li>
+                <li><a href="https://blog.optimalworkshop.com/10-information-architecture-traps-we-all-fall-into-part-1">10 information architecture traps we all fall into
+                <li><a href="https://blog.hubspot.com/blog/tabid/6307/bid/32307/15-Things-People-Absolutely-Hate-About-Your-Website.aspx">17 things people hate about your Web site </a>
+                <li><a href="https://www.nngroup.com/articles/ux-research-cheat-sheet/">UX research cheat sheet</a></li>
+          
+                <li><a href="https://www.nngroup.com/articles/which-ux-research-methods/">When to use which UX research methods</a></li>
+          
+                <li><a href="https://www.usability.gov/what-and-why/user-research.html">UX Research basics</a></li>
+          
+                <li><a href="https://www.interaction-design.org/literature/article/how-to-conduct-user-interviews">How to conduct user interviews</a></li>
+                <li><a href="https://www.interaction-design.org/literature/article/contextual-interviews-and-how-to-handle-them">Contextual interviews</a></li>
+                <li><a href="https://www.uxmatters.com/mt/archives/2015/09/recruiting-the-right-participants-for-user-research.php">recruiting the right participants for contextual research</a></li>
+                  
+                <li><a href="https://uxstudioteam.com/ux-blog/ux-team-structure/">All You Need to Know About UX Team Structure</a></li>
+                <li><a href="https://www.nngroup.com/articles/no-validate-in-ux/">Don’t “Validate” Designs; Test Them</a></li>
+          
+                <li><a href="https://www.uxmatters.com/mt/archives/2016/11/agile-development-is-no-excuse-for-shoddy-ux-research.php">Agile & UX Research</a></li>
+          
+                <li><a href="https://www.fastcompany.com/90216977/blue-light-from-screens-can-steadily-blind-us--">Blue light blinds</a></li>
+                <li><a href="http://www.prescientdigital.com/downloads/Information%20Architecture%20For%20Intranets%20-%20Prescient%20Digital%20Media.pdf">Intranet Information Architecture (PDF)</a></li>
+          
+                <li><a href="https://agentestudio.com/blog/website-navigation-design">10 Great Examples of Website Navigation Design</a></li>
+          
+                <li><a href="https://www.nngroup.com/articles/search-visible-and-simple/">Search: Visible and Simple</a></li>
+          
+                <li><a href="https://www.nngroup.com/articles/intranet-information-architecture-ia/">Intranet Information Architecture (IA) Trends</a></li>
+          
+                <li><a href="http://www.uxbooth.com/articles/designing-for-mobile-part-1-information-architecture/">Designing for Mobile, Part 1: Information Architecture</a></li>
+                <li><a href="https://www.nngroup.com/articles/field-studies-intranet-redesign/">Field Studies Should Inform Intranet Redesign</a></li>
+                <li><a href="https://www.nngroup.com/articles/ux-without-user-research/">UX Without User Research Is Not UX</a></li>
+          
+                <li><a href="https://medium.com/design-ibm/the-vital-role-of-user-research-8c2f51a9cead">The vital role of user research in design</a></li>
+                <li><a href="https://uxdesign.cc/agile-wont-get-you-to-done-here-are-4-ways-to-fix-that-4e6b83b85a4a">Agile Won’t Get You to Done: Here Are Four Ways to Fix That</a></li>
+                
+              </ul>
+            </diviv>
+    </section>
+    {{- end -}}
+
+    <!-- Tools Section -->
+    {{- if isset $.Params "tools" -}}
+    <section id="{{ .Scratch.Get "tools" }}" class="download-section content-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto improve-contrast-box">
+                  
+            <h2>{{- default "" $.Params.tools.header | safeHTML -}}</h2>
+            <ul>
+              <li><a href="https://www.unsplash.com">Unsplash</a></li>
+              <li><a href="https://undraw.co/illustrations">Undraw</a></li>
+              <li><a href="https://goofonts.com/">GooFonts Google Fonts, tagged</a></li>
+              <li><a href="https://fonts.google.com/">Google Fonts</a></li>
+              <li><a href="https://coolors.co/75f4f4-90e0f3-b8b3e9-d999b9-d17b88">Coolers colour picker</a></li>
+              <li><a href="https://material.io/">Material Design</a></li>
+              <li><a href="http://sensible.com/downloads-rsme.html">Rocket Surgery Made Easy downloads</a></li>
+              <li><a href="https://contentsnare.com/client-website-content-checklist/">Content checklist (download)</a></li>
+              <li><a href="https://designtitles.com/">Design Titles (just for fun)</a></li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    {{- end -}}
+
+    <!-- Video Section -->
+    {{- if isset $.Params "video" -}}
+    <section id="{{ .Scratch.Get "video" }}" class="content-section text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h2>{{- default "" $.Params.video.header | safeHTML -}}</h2>
+
+            <p>Videos for when watching is better than reading.</p>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=RlQEoJaLQRA&feature=youtu.be">Don Norman TED talk: the three ways good design makes you happy</a><br />
+                  <div class="iframe-container"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/RlQEoJaLQRA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></li>
+                <li><a href="https://www.youtube.com/watch?v=2tuWjtc2Ifk&authuser=0">How to Develop KPIs</a><br />
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/2tuWjtc2Ifk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+                <li><a href="https://www.youtube.com/watch?v=bJ13KhTffbQ&authuser=0">Benefits of UX Design</a><br />
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/bJ13KhTffbQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+                <li><a href="https://youtu.be/3TwgVQIZPsw">How focus groups work</a><br />
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/3TwgVQIZPsw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+                <li><a href="https://youtu.be/ReM1uqmVfP0">Strategyzer value proposition canvas</a><br />
+                  <iframe width="560" height="315" src="https://www.youtube.com/embed/ReM1uqmVfP0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+            </ul>
+
+            {{- if isset $.Params "socialhandles" -}}
+            <ul class="list-inline banner-social-buttons">
+              {{- if isset $.Params.socialhandles "twitter" -}}
+              <li class="list-inline-item">
+                <a href="https://twitter.com/{{ $.Params.socialhandles.twitter }}" class="btn btn-default btn-lg">
+                  <i class="fa fa-twitter fa-fw"></i>
+                  <span class="network-name">Twitter</span>
+                </a>
+              </li>
+              {{- end -}}
+              {{- if isset $.Params.socialhandles "github" -}}
+              <li class="list-inline-item">
+                <a href="https://github.com/{{ $.Params.socialhandles.github }}" class="btn btn-default btn-lg">
+                  <i class="fa fa-github fa-fw"></i>
+                  <span class="network-name">Github</span>
+                </a>
+              </li>
+              {{- end -}}
+              {{- if isset $.Params.socialhandles "googplus" -}}
+              <li class="list-inline-item">
+                <a href="https://plus.google.com/+{{ $.Params.socialhandles.googplus }}/posts" class="btn btn-default btn-lg">
+                  <i class="fa fa-google-plus fa-fw"></i>
+                  <span class="network-name">Google+</span>
+                </a>
+              </li>
+              {{- end -}}
+              {{- if isset $.Params.socialhandles "facebook" -}}
+              <li class="list-inline-item">
+                <a href="https://facebook.com/{{ $.Params.socialhandles.facebook}}" class="btn btn-default btn-lg">
+                  <i class="fa fa-facebook-square fa-fw"></i>
+                  <span class="network-name">Facebook</span>
+                </a>
+              </li>
+              {{- end -}}
+              {{- if isset $.Params.socialhandles "instagram" -}}
+              <li class="list-inline-item">
+                <a href="https://instagram.com/{{ $.Params.socialhandles.instagram }}" class="btn btn-default btn-lg">
+                  <i class="fa fa-instagram fa-fw"></i>
+                  <span class="network-name">Instagram</span>
+                </a>
+              </li>
+              {{- end -}}
+            </ul>
+            {{- end -}}
+          </div>
+        </div>
+      </div>
+    </section>
+    {{- end -}}
+
+    {{- if isset $.Params "mapsapikey" -}}
+    <!-- Map Section -->
+    <div id="map"></div> 
+    {{- end -}}
+
+{{- end -}}
