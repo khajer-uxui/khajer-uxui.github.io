@@ -3,7 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+<<<<<<< HEAD
     <loc>/</loc>
+=======
+    <loc>./</loc>
+>>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
     <lastmod>2020-01-01T00:00:00+00:00</lastmod>
   </url>
   
