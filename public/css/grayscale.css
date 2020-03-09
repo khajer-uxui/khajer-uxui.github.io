@@ -4,7 +4,7 @@ body {
   width: 100%;
   height: 100%;
   color: black;
-  background-color: #a8a199;
+  background-color: #c3d4e4;
 }
 
 html {
@@ -25,6 +25,11 @@ h6 {
   text-transform: uppercase;
 }
 
+h3 {
+  margin: 3px;
+  padding-top: 10px;
+}
+
 p {
   font-size: 16px;
   line-height: 1.5;
@@ -40,19 +45,30 @@ a {
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
-  color: #ffffff;
+  color: #000;
 }
 
-a:focus, a:hover {
+a:focus,
+a:hover {
   text-decoration: none;
-  color: #0b99bd;
+  color: #f6ffff;
+}
+
+#mainNav a {
+  color: white;
+}
+
+#mainNav a:focus,
+#mainNav a:hover {
+  text-decoration: none;
+  color: #f1d235;
 }
 
 #mainNav {
   font-family: 'Josefin Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin-bottom: 0;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  /* border-bottom: 1px solid rgba(255, 255, 255, 0.3); */
   background-color: black;
 }
 
@@ -71,10 +87,6 @@ a:focus, a:hover {
   padding: 5px;
 }
 
-#mainNav a {
-  color: white;
-}
-
 #mainNav .navbar-nav .nav-item {
   -webkit-transition: background 0.3s ease-in-out;
   -moz-transition: background 0.3s ease-in-out;
@@ -87,7 +99,8 @@ a:focus, a:hover {
   background-color: transparent;
 }
 
-#mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
+#mainNav .navbar-nav .nav-item:active,
+#mainNav .navbar-nav .nav-item:focus {
   outline: none;
   background-color: transparent;
 }
@@ -99,17 +112,15 @@ a:focus, a:hover {
   padding: 200px 0;
   text-align: center;
   color: white;
-  background: 
-  linear-gradient(
-    rgba(255, 0, 0, 0), 
-    rgba(255, 0, 0, 0)
-  ),
+  background:
+    linear-gradient(rgba(255, 0, 0, 0),
+      rgba(255, 0, 0, 0)),
     url("../img/intro-bg.jpg") no-repeat bottom center scroll;
   background-color: black;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  -webkit-background-size: fill;
+  -moz-background-size: fill;
+  -o-background-size: fill;
+  background-size: fill;
 }
 
 .overlay {
@@ -161,26 +172,25 @@ a:focus, a:hover {
   background: transparent;
 }
 
-.btn-circle:focus, .btn-circle:hover {
+.btn-circle:focus,
+.btn-circle:hover {
   color: white;
   outline: none;
-  background: rgba(249, 235, 74, 0.25);
+  background: rgba(249, 235, 74, 0.5);
 }
 
 .content-section {
-  padding-top: 150px;
-  padding-bottom: 150px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   min-height: 100vh;
 }
 
-.download-section {
+.tools-section {
   color: white;
   min-height: 100vh;
-  background: 
-  linear-gradient(
-    rgba(255, 0, 0, 0), 
-    rgba(255, 0, 0, 0)
-  ),
+  background:
+    linear-gradient(rgba(255, 0, 0, 0),
+      rgba(255, 0, 0, 0)),
     url("../img/downloads-bg.jpg") no-repeat center center scroll;
   background-color: black;
   -webkit-background-size: cover;
@@ -189,12 +199,33 @@ a:focus, a:hover {
   background-size: cover;
 }
 
-#map {
-  width: 100%;
-  height: 300px;
+#tools a,
+#tools a:focus,
+#tools a:hover {
+  text-decoration: none;
+}
+
+#tools a {
+  color: #ffffff;
+}
+
+#tools a:focus,
+#tools a:hover {
+  color: #f1d235;
+}
+
+#tools .improve-contrast-box {
+  padding: 25px;
 }
 
 
+@media (max-width: 767px) {
+  .brand-heading {
+    font-size: 50px;
+    padding: 50px;
+  }
+  
+}
 
 @media (min-width: 768px) {
   p {
@@ -207,10 +238,15 @@ a:focus, a:hover {
     height: 100%;
     padding: 0;
   }
-  
+
   .masthead .intro-body .intro-text {
     font-size: 22px;
   }
+
+  
+   
+
+
 }
 
 @media (min-width: 992px) {
@@ -224,16 +260,19 @@ a:focus, a:hover {
     border-bottom: none;
     background: transparent;
   }
+
   #mainNav.navbar-shrink {
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     background: black;
   }
+
   #mainNav .nav-link.active {
     outline: none;
     background-color: rgba(255, 255, 255, 0.3);
   }
+
   #mainNav .nav-link.active:hover {
     color: white;
   }
@@ -264,7 +303,8 @@ a:focus, a:hover {
   background-color: transparent;
 }
 
-.btn-default:focus, .btn-default:hover {
+.btn-default:focus,
+.btn-default:hover {
   color: black;
   border: 1px solid #a90716;
   outline: none;
@@ -287,6 +327,7 @@ ul.banner-social-buttons {
     margin-bottom: 20px;
     padding: 0;
   }
+
   ul.banner-social-buttons li:last-child {
     margin-bottom: 0;
   }
@@ -319,4 +360,21 @@ img::selection {
 
 img::-moz-selection {
   background: transparent;
+}
+
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 50px;
 }
