@@ -117,10 +117,10 @@ a:hover {
       rgba(255, 0, 0, 0)),
     url("../img/intro-bg.jpg") no-repeat bottom center scroll;
   background-color: black;
-  -webkit-background-size: fill;
-  -moz-background-size: fill;
-  -o-background-size: fill;
-  background-size: fill;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .overlay {
