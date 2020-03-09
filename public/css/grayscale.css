@@ -4,11 +4,7 @@ body {
   width: 100%;
   height: 100%;
   color: black;
-<<<<<<< HEAD
   background-color: #c3d4e4;
-=======
-  background-color: #aaaaac;
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
 }
 
 html {
@@ -29,14 +25,11 @@ h6 {
   text-transform: uppercase;
 }
 
-<<<<<<< HEAD
 h3 {
   margin: 3px;
   padding-top: 10px;
 }
 
-=======
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
 p {
   font-size: 16px;
   line-height: 1.5;
@@ -52,7 +45,6 @@ a {
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
-<<<<<<< HEAD
   color: #000;
 }
 
@@ -70,25 +62,13 @@ a:hover {
 #mainNav a:hover {
   text-decoration: none;
   color: #f1d235;
-=======
-  color: #a90716;
-}
-
-a:focus, a:hover {
-  text-decoration: none;
-  color: #0b99bd;
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
 }
 
 #mainNav {
   font-family: 'Josefin Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin-bottom: 0;
   text-transform: uppercase;
-<<<<<<< HEAD
   /* border-bottom: 1px solid rgba(255, 255, 255, 0.3); */
-=======
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
   background-color: black;
 }
 
@@ -107,13 +87,6 @@ a:focus, a:hover {
   padding: 5px;
 }
 
-<<<<<<< HEAD
-=======
-#mainNav a {
-  color: white;
-}
-
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
 #mainNav .navbar-nav .nav-item {
   -webkit-transition: background 0.3s ease-in-out;
   -moz-transition: background 0.3s ease-in-out;
@@ -126,12 +99,8 @@ a:focus, a:hover {
   background-color: transparent;
 }
 
-<<<<<<< HEAD
 #mainNav .navbar-nav .nav-item:active,
 #mainNav .navbar-nav .nav-item:focus {
-=======
-#mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
   outline: none;
   background-color: transparent;
 }
@@ -143,7 +112,6 @@ a:focus, a:hover {
   padding: 200px 0;
   text-align: center;
   color: white;
-<<<<<<< HEAD
   background:
     linear-gradient(rgba(255, 0, 0, 0),
       rgba(255, 0, 0, 0)),
@@ -153,19 +121,6 @@ a:focus, a:hover {
   -moz-background-size: fill;
   -o-background-size: fill;
   background-size: fill;
-=======
-  background: 
-  linear-gradient(
-    rgba(255, 0, 0, 0.45), 
-    rgba(255, 0, 0, 0.45)
-  ),
-    url("../img/intro-bg.jpg") no-repeat bottom center scroll;
-  background-color: black;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
 }
 
 .overlay {
@@ -244,7 +199,6 @@ a:focus, a:hover {
   background-size: cover;
 }
 
-<<<<<<< HEAD
 #tools a,
 #tools a:focus,
 #tools a:hover {
@@ -272,14 +226,6 @@ a:focus, a:hover {
   }
   
 }
-=======
-#map {
-  width: 100%;
-  height: 300px;
-}
-
-
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
 
 @media (min-width: 768px) {
   p {
@@ -292,7 +238,6 @@ a:focus, a:hover {
     height: 100%;
     padding: 0;
   }
-<<<<<<< HEAD
 
   .masthead .intro-body .intro-text {
     font-size: 22px;
@@ -302,12 +247,6 @@ a:focus, a:hover {
    
 
 
-=======
-  
-  .masthead .intro-body .intro-text {
-    font-size: 22px;
-  }
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
 }
 
 @media (min-width: 992px) {
@@ -321,28 +260,16 @@ a:focus, a:hover {
     border-bottom: none;
     background: transparent;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
   #mainNav.navbar-shrink {
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     background: black;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
   #mainNav .nav-link.active {
     outline: none;
     background-color: rgba(255, 255, 255, 0.3);
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
   #mainNav .nav-link.active:hover {
     color: white;
   }
@@ -373,12 +300,8 @@ a:focus, a:hover {
   background-color: transparent;
 }
 
-<<<<<<< HEAD
 .btn-default:focus,
 .btn-default:hover {
-=======
-.btn-default:focus, .btn-default:hover {
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
   color: black;
   border: 1px solid #a90716;
   outline: none;
@@ -401,10 +324,6 @@ ul.banner-social-buttons {
     margin-bottom: 20px;
     padding: 0;
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
   ul.banner-social-buttons li:last-child {
     margin-bottom: 0;
   }
@@ -438,7 +357,6 @@ img::selection {
 img::-moz-selection {
   background: transparent;
 }
-<<<<<<< HEAD
 
 .videoWrapper {
   position: relative;
@@ -456,5 +374,3 @@ img::-moz-selection {
   height: 100%;
   padding-bottom: 50px;
 }
-=======
->>>>>>> ee04a57bebdad86000eff1b00720615b7829ef41
