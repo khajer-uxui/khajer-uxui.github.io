@@ -1,4 +1,6 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
@@ -128,45 +130,61 @@ a:hover {
   background-size: cover;
 }
 
-.overlay {
-  background-color: rgba(255, 247, 0, 0.7);
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-
 .masthead .intro-body {
   display: table-cell;
   vertical-align: middle;
 }
 
 .brand-heading {
-  font-size: 100px;
+  font-size: min(max(20px, 40vw), 70px);
   padding: 10px;
 }
 
 .masthead .intro-body .intro-text {
-  font-size: 18px;
+  font-size: min(max(12px, 8vw), 18px);
 }
 
 .intro-text {
   text-align: center;
   padding: 10px;
+
 }
 
 .improve-contrast-box {
   background: rgba(0, 0, 0, .5);
   border-radius: 5px;
   text-shadow: 0px 0px 8px rgba(0, 0, 0, 1);
+
 }
+
+.brand-heading-box {
+  background: rgba(0, 0, 0, .5);
+  border-radius: 5px;
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 1);
+  padding: 25px;
+  min-height: 5%;
+  position: absolute;
+  max-width: 80%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  clear: both;
+}
+
+/* .btn-box {
+  padding: 25px;
+  min-height: 10%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} */
 
 .btn-circle {
   font-size: 26px;
   width: 55px;
   height: 55px;
-  margin-top: 15px;
+  margin-top: 250px;
   line-height: 45px;
   -webkit-transition: background 0.3s ease-in-out;
   -moz-transition: background 0.3s ease-in-out;
@@ -175,13 +193,15 @@ a:hover {
   border: 2px solid white;
   border-radius: 100% !important;
   background: transparent;
+  position: absolute;
+  float: both;
 }
 
 .btn-circle:focus,
 .btn-circle:hover {
   color: white;
   outline: none;
-  background: rgba(249, 235, 74, 0.5);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .content-section {
@@ -233,14 +253,16 @@ a:hover {
   transform: translate(-50%, -50%);
 }
 
-
-@media (max-width: 767px) {
-  .brand-heading {
-    font-size: 50px;
-    padding: 50px;
-  }
-  
+.btn {
+  font-family: 'Josefin Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  border-radius: 0;
 }
+
 
 @media (min-width: 768px) {
   p {
@@ -254,12 +276,8 @@ a:hover {
     padding: 0;
   }
 
-  .masthead .intro-body .intro-text {
-    font-size: 22px;
-  }
 
-  
-   
+
 
 
 }
@@ -275,16 +293,19 @@ a:hover {
     border-bottom: none;
     background: transparent;
   }
+
   #mainNav.navbar-shrink {
     padding-top: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     background: black;
   }
+
   #mainNav .nav-link.active {
     outline: none;
     background-color: rgba(255, 255, 255, 0.3);
   }
+
   #mainNav .nav-link.active:hover {
     color: white;
   }
@@ -299,34 +320,6 @@ a:hover {
   }
 }
 
-.btn {
-  font-family: 'Josefin Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  text-transform: uppercase;
-  border-radius: 0;
-}
-
-.btn-default {
-  color: #a90716;
-  border: 1px solid #a90716;
-  background-color: transparent;
-}
-
-.btn-default:focus,
-.btn-default:hover {
-  color: black;
-  border: 1px solid #a90716;
-  outline: none;
-  background-color: #a90716;
-}
-
-ul.banner-social-buttons {
-  margin-top: 0;
-}
-
 @media (max-width: 1199px) {
   ul.banner-social-buttons {
     margin-top: 15px;
@@ -339,6 +332,7 @@ ul.banner-social-buttons {
     margin-bottom: 20px;
     padding: 0;
   }
+
   ul.banner-social-buttons li:last-child {
     margin-bottom: 0;
   }
