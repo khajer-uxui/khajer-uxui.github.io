@@ -214,7 +214,7 @@ a:hover {
     linear-gradient(rgba(255, 0, 0, 0),
       rgba(255, 0, 0, 0)),
     url("../img/downloads-bg.jpg") no-repeat center center scroll;
-  background-color: black;
+  background-color: #a9c4cf;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
