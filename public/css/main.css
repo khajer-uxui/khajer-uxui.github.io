@@ -602,7 +602,7 @@ blockquote footer {
 header div p a {
     color: var(--color-secondary);
     background-color: var(--color-bg);
-    border: var(--color-secondary) solid .4vw;
+    border: var(--color-secondary) solid .3vw;
     text-align: center;
     padding-top: .3rem;
     padding-bottom: .3rem;
@@ -728,7 +728,7 @@ header div p a:hover, a:focus {
 .look {
     color: var(--color-secondary);
     background-color: var(--color-bg);
-    border: var(--color-secondary) solid .4vw;
+    border: var(--color-secondary) solid .3vw;
     text-align: center;
     padding-top: .3rem;
     padding-bottom: .3rem;
