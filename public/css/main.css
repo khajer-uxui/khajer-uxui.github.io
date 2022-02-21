@@ -16,7 +16,7 @@
     --color: #136fb0;
     --color-accent: #118bee;
     --color-bg: #fff;
-    --color-bg-secondary: #b5eaff;
+    --color-bg-secondary: #daf2fb;
     --color-secondary: var(--color);
     --color-secondary-accent: #ffffff;
     --color-shadow: #f4f4f4;
@@ -151,11 +151,8 @@ header a strong {
 }
 
 .intro {
-    /* margin-left: -15vw;
-    margin-right: -15vw; */
     max-width: 50vw;
     min-width: 350px;
-    /* min-height: 90vh; */
     padding: 1em 1.5em 1em 1.5em;
     border-radius: 10px;
     border: .5vw solid var(--color-text);
@@ -171,7 +168,6 @@ header nav img {
 
 section header {
     padding-top: 0;
-    /* width: 100%; */
 }
 
 /* Nav */
@@ -373,10 +369,10 @@ sup {
     top: -2px;
 }
 
+
 /* Links */
 a {
     color: var(--color);
-    /* display: inline-block; */
     font-weight: bold;
     text-decoration: none;
     font-family: var(--font-heading);
@@ -389,7 +385,8 @@ p > a {
 }
 
 a:hover, a:focus {
-    filter: brightness(var(--hover-brightness));
+    /* filter: brightness(var(--hover-brightness)); */
+    color: #000;
 }
 
 button {
@@ -602,21 +599,23 @@ blockquote footer {
     align-content: center;
 }
 
-.cta > a {
-    text-transform: uppercase;
-
-}
-
-.look {
-    background-color: var(--color-secondary);
+header div p a {
+    color: var(--color-secondary);
+    background-color: var(--color-bg);
+    border: var(--color-secondary) solid .4vw;
     text-align: center;
-    color: var(--color-bg);
     padding-top: .3rem;
     padding-bottom: .3rem;
     padding-left: .5rem;
     padding-right: .5rem;
     border-radius: 10px;
     text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+header div p a:hover, a:focus {
+    background-color: var(--color-secondary);
+    color: var(--color-bg);
 }
 
 .text-block {
@@ -682,11 +681,13 @@ blockquote footer {
     font-family: var(--font-heading);
     text-transform: uppercase;
     font-size: 1.25rem;
+    letter-spacing: .3em;
 }
 
 .portfolio-hover:hover {
     opacity: .85;
     filter: brightness(1);
+    color: var(--color-bg);
     
 }
 
@@ -705,7 +706,6 @@ blockquote footer {
 
 .portfolio-caption > a {
     text-transform: uppercase;
-
 }
 
 .portfolio-caption-subtitle {
@@ -725,7 +725,38 @@ blockquote footer {
     box-shadow: var(--box-shadow);
 }
 
-/* .portfolio-caption >p {
-    font-style: italic;
-} */
+.look {
+    color: var(--color-secondary);
+    background-color: var(--color-bg);
+    border: var(--color-secondary) solid .4vw;
+    text-align: center;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
 
+.look:hover, .look:focus {
+    background-color: var(--color-secondary);
+    color: var(--color-bg);
+}
+
+
+.contactImg {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    width: 100%;
+
+}
+
+.contentLeft{
+    max-width: 500px;
+}
+
+.decorRight {
+    align-self: right;
+}
