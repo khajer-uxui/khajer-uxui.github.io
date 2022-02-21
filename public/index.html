@@ -2,73 +2,414 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" href="https://via.placeholder.com/70x70">
-    
-    <link rel="stylesheet" href="css/portfolio.css">
+    <title>Katherine Hajer's portfolio</title>
+
+    <link rel="icon" type="image/ico" href="img/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://kit.fontawesome.com/22b9ed3f4d.js" crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
     <meta name="description" content="My description">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Katherine Hajer's Portfolio</title>
 </head>
 
 <body>
-    <header>
-        <nav>
-            <h1>Katherine Hajer&CloseCurlyQuote;s Portfolio</h1>
-            <ul>
-                <li><a href="#top">Home</a></li>
-                <li><a href="#research">Research</a></li>
-                <li><a href="#wireframe">Wireframes</a></li>
-            </ul>
-        </nav>
+    <header id="top">
+        <div class="intro">
+            <p><em>welcome to</em></p>
+            <h1>Katherine Hajer&CloseCurlyQuote;s<br>portfolio</h1>
+            <p><em>UX research and analysis, accessibilty, writing, web design, and print design</em></p>
+
+            <div class="about">
+                <div><img src="img/headShot.JPG" alt="my headshot" width="300" height="300"></div>
+
+                <p>I work with teams to create the <em>right</em> solution, with the research and data to support my &mdash; and the team's &mdash; expertise. I am absolutely passionate about accessibility and making the overall user experience fantastic for everyone!</p>
+
+            </div>
+
+            <div class="cta">
+                <p> 
+                    <a href="#case" class="look">Take a Look</a>
+                </p>
+            </div>
+
+
+        </div>
     </header>
+    <nav>
+        <div>
+            <p>
+                Katherine Hajer
+                <a href="https://www.linkedin.com/in/katherine-hajer/" title="LinkedIn"><span class="fa fa-linkedin"></span><span class="sr-only">LinkedIn</span></a>
+                <a href="mailto:katherine.hajer@gmail.com" title="Email katherine.hajer@gmail.com"><span class="fa fa-envelope"></span><span class="sr-only">Email katherine.hajer@gmail.com</span></a>
+
+            </p>
+            <button class="Navbar__Link-toggle">Menu <span class="fas fa-bars fa-1x"></span></button>
+        </div>
+        <ul class="Navbar__Items">
+            <li><a href="#top">Home</a></li>
+            <li><a href="#case">Case Studies</a></li>
+            <li><a href="#skill">Skill Areas</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
     <main>
-        <h1>Beaches Wellness Centre website development</h1>
+        <article id="case">
+            <section>
+                <header>
+                    <h2>Case Studies</h2>
+                </header>
 
-        <article id="top">
-            <h2>Task management</h2>
-            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRMsdyQs8E76APHSZAXYQqkVLCGNf9w3nrND8UpsMCElhAFPgNejmKywdnBgvsEvZx1lMdmVoNbVCQN/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" width="960" height="600"></iframe>
-        </article>
+                <p>
+                    <strong>Note:</strong> my current workplace has very strict security standards, so I&rsquo;m not permitted to show any work in a public space. All of these examples have been completed on my own time outside of work hours. What I <em>can</em> tell you are the names of some of the clients I've done work for at my current position:
+                </p>
 
-        <h2 id="research">Research</h2>
+                <ul>
+                    <li>RBC Bank</li>
+                    <li>TD Bank</li>
+                    <li>Bank of Nova Scotia</li>
+                    <li>Canada Life Insurance</li>
+                    <li>Canadian Tire Financial Services</li>
+                </ul>
 
-        <article id="compete">
-            <h3>Competitive Analysis</h3>
-            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ_OFdzXkOwc-C9cojmik2KiRuokUJPSEJ54EdZLyrDkoj_qNs2PsQyM1C-vc2clMoXaFEfcczF7Ob4/embed?start=false&loop=false&delayms=30000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-        </article>
-        <article id="menu">
-            <h3>Menu card sort analysis</h3>
-            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS-mIdnga1OIwQNYvq1ZrJmVvZPqBvVtJWLNRQe2j_pE5bEZW2RbApyMkq-408xGrVeCNxhAXREJvnH/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-        </article>
-        <article id="search">
-            <h3>Search Engine Optimization</h3>
-            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQH8qK1CV61MORO5pXvAP9ntajaSzJikT_bS4fXNbxTdR5wf9tL5XghmMDjZZNlY03VNhBPDfbXLUtx/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-        </article>
-        <article id="host">
-            <h3>Easy-Edit Hosting Options</h3>
-            <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTj0D_ziZ5nmFPRd3Pz2jNtghojIUtgI-M51g2Z-3DU3mWFbezoM_tT3Mpa_zJ1DKWCBaEo3-jKRM3r/embed?start=false&loop=false&delayms=3000" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-        </article>
+                <div id="caseStudies">
 
-        <h2 id="wireframe">Wireframes</h2>
+                    <div class="portfolio-item-container">
 
-        <!-- style="border: 1px solid rgba(0, 0, 0, 0.1);"  -->
-        <article id="mobile">
-            <h3>Mobile</h3>
-            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F5Vma0Je3Twe3uiWF2TqSPL%2FBeaches-Wellness-Centre-wireframes%3Fnode-id%3D122%253A793%26scaling%3Dscale-down%26page-id%3D122%253A658" frameborder="0" width="960" height="569"  allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-        </article>
-        <article id="tablet">
-            <h3>Tablet</h3>
-            <iframe src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F5Vma0Je3Twe3uiWF2TqSPL%2FBeaches-Wellness-Centre-wireframes%3Fnode-id%3D174%253A258%26scaling%3Dscale-down%26page-id%3D110%253A64" frameborder="0" width="960" height="569"  allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-        </article>
-        <article id="desktop">
-            <h3>Desktop/Laptop</h3>
-            <iframe  src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F5Vma0Je3Twe3uiWF2TqSPL%2FBeaches-Wellness-Centre-wireframes%3Fnode-id%3D180%253A100%26scaling%3Dscale-down%26page-id%3D110%253A65" frameborder="0" width="960" height="569"  allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-        </article>
+                        <div id="bwc" class="portfolio-item">
+
+                            <a data-toggle="modal" href="#bwcResearch" class="portfolio-hover">
+                                <!-- <i class="fa fa-plus sfa-w-14 fa-3x" aria-hidden="true"></i> -->
+                                Learn More
+                            </a>
+
+                            <img src="assets/img/portfolio/01-thumbnail.jpg" alt="Beaches Wellness Centre">
 
 
-        
+                        </div>
+                        <p class="portfolio-caption">
+                            <a data-toggle="modal" href="#bwcResearch">
+                                Beaches Wellness Centre<br>
+                                <span class="portfolio-caption-subtitle">Research</span>
+                            </a>
+                        </p>
+                    </div>
+
+                    <div class="portfolio-item-container">
+
+                        <div id="portfolioSite" class="portfolio-item">
+                            <a data-toggle="modal" href="#bwcWireframes" class="portfolio-hover">
+                                <!-- <i class="fa fa-plus sfa-w-14 fa-3x" aria-hidden="true"></i> -->
+                                Learn More
+                            </a>
+                            <img src="assets/img/portfolio/02-thumbnail.jpg" alt="This site!">
+                        </div>
+                        <p class="portfolio-caption">
+                            <a data-toggle="modal" href="#bwcWireframes">
+                                Beaches Wellness Centre<br>
+                                <span class="portfolio-caption-subtitle">Wireframes & Testing</span>
+                            </a>
+                        </p>
+
+                    </div>
+
+                    <div class="portfolio-item-container">
+
+                        <div id="siteAnalysis" class="portfolio-item">
+                            <a data-toggle="modal" href="#thisSite" class="portfolio-hover">
+                                <!-- <i class="fa fa-plus sfa-w-14 fa-3x" aria-hidden="true"></i> -->
+                                Learn More
+                            </a>
+
+                            <img src="assets/img/portfolio/03-thumbnail.jpg" alt="third option">
+
+                        </div>
+                        <p class="portfolio-caption">
+                            <a data-toggle="modal" href="#thisSite">
+                                This Site<br>
+                                <span class="portfolio-caption-subtitle">Semantic HTML & CSS</span>
+                            </a>
+                        </p>
+
+                    </div>
+                </div>
+
+
+                <h3 id="bwcResearch">Beaches Wellness Centre: Research</h3>
+                <p><em>2021</em></p>
+
+                <div class="triptych">
+                    <div>
+                        <a href="img/caPresentation.png"><img src="img/caPresentation.png" width="300" height="auto" alt="bar graph showing most popular menu items on competitve web sites"></a>
+                    </div>
+
+                    <div>
+                        <a href="img/spreadsheet.png"><img src="img/spreadsheet.png" width="300" height="auto" alt="bar graph showing most popular menu items on competitve web sites"></a>
+                    </div>
+
+                    <div>
+                        <a href="img/csPresentation.png"><img src="img/csPresentation.png" width="300" height="auto" alt="bar graph showing most popular menu items on competitve web sites"></a>
+                    </div>
+                </div>
+
+                <p>Beaches Wellness Centre is a well-established chiropractic and registered massage therapy clinic in Toronto's Beaches neighbourhood. As one of their patients, I went to leave a voicemail for them one day, but first wanted to double-check their hours to make sure I wouldn't be bothering them right at the end of the day... and discovered they didn't have a web site.</p>
+
+                <p>Since I needed portfolio work I could show in public without violating my employer's security regulations, I asked if I could make a web site for them, and they agreed.</p>
+
+                <p><strong>Overarching constraint: </strong>COVID caused a lot of restrictions on physical space and time. The clinic's waiting room was shut down; patients had to wait outside the building before their appointments. The clinic's volumes also went up, so time to meet with the stakeholders was minimal. It wasn't unusual for the clinic owner and I to talk about next steps <em>during</em> my appointment, simply because it was the only time we had to discuss anything with each other.</p>
+
+                <h4>The Problem</h4>
+                <p>After some discussions, the proposed site's goals were determined:</p>
+                <ul>
+                    <li><strong>Feasible: </strong> the site must be low-cost to create and maintain.</li>
+                    <li><strong>Accessible: </strong>although the business does not fall under AODA regulations, it made sense to implement WCAG 2.1 AA accessibility for a brand-new site.</li>
+                    <li><strong>Ease of content management: </strong>After initial implementation, the clinic wanted to be able to update the site themselves.</li>
+                    <li><strong>Responsive: </strong>The design had to be mobile-first, but also support tablet and larger-screen visits.</li>
+                </ul>
+
+                <p>A brief was created which listed the project goals, constraints, major deliverables, and other major details.</p>
+
+                <h4>Research</h4>
+
+                <p>Research focused on three topics:</p>
+                <ul>
+                    <li><strong>Competition: </strong>what do the websites of the other clinics in the neighbourhood look like? what content do they have?</li>
+                    <li><strong>Existing patients: </strong>what do the existing patients want in a website? What would they find useful? (Note that nearly all clinic patients are referred by word of mouth, so existing patients are considered the primary audience for a site.)</li>
+                    <li><strong>Information architecture: </strong>in what order should the website provide the content? How should information be grouped? What are the major content topics?</li>
+                </ul>
+                
+    
+                <p><strong>Competition: </strong>I created a competitive analysis of 13 different clinics, mostly from the neighbourhood, a few in adjacent communities. The analysis noted the purpose of the site, the colour scheme, the main menu items, the core content, what services are offered, and whether or not the site had been updated recently.</p>
+                <p>Chiropractors are not allowed to compete against each other directly (ie: they can&rsquo;t say anything like, “Best in Toronto!”), so it was important to find out how to stand out in a way that complied with professional standards.</p>
+                <p>The analysis revealed that there were two major ways to both stand out as a website and to comply with the standards:</p>
+                <ul>
+                    <li>Choose a colour scheme which wasn&rsquo;t the same as the other sites, which tended to draw from a limited set of pallettes</li>
+                    <li>Order the information in a way that appealed to patients</li>
+                </ul>
+                
+                <p><strong>Existing patients: </strong>I decided to take advantage of the restrictions COVID had placed on patient access, and use the time waiting outside for appointments to talk to other patients informally and learn what they expected from a website. Sometimes we would look at competition websites together as well.</p>
+                
+                <p><strong>Information architecture: </strong>I used <a href="https://www.optimalworkshop.com/">Optimal Workshop <span class="fas fa-external-link-alt" title="external link"></span><span class="sr-only">(external link)</span></a> to create a card sorting exercise, based on the most popular menu items revealed in the competitive analysis and topics patients had mentioned. Patients were invited to complete it, and to share the link if they wanted. This gave me enough data to determine the major content for the website, and in how it should be organized.</p>
+
+                <h4>The User's Needs & Pain Points</h4>
+
+                <p>The patient interviews and card sorting revealed the following pain points and needs:</p>
+                <ul>
+                    <li>They didn&rsquo;t like having to scroll through multiple screens&rsquo; worth of therapy descriptions just to find out a clinic&rsquo;s office hours or contact information.</li>
+                    <li>It was too difficult to find out the clinic address. Many existing patients only visit once every several months and so don&rsquo;t have the location memorized.</li>
+                    <li>Patients weren&rsquo;t confident they would understand therapy descriptions from a website, and were more comfortable simply discussing them with someone at the clinic on the phone or during an appointment. </li>
+                </ul>
+                
+                <h4>Key Design Decisions</h4>
+                
+                <p>The research led to the following major design decisions:</p>
+
+                <ul>
+                    <li>It confirmed that mobile-first was the best way to go &mdash; many patients just assumed they would be using their phone to access the site, and that they would be using the site en route to an appointment, or when they were otherwise not at home.</li>
+                    <li>Patients strongly preferred a one-page layout, so they could thumb-scroll over using links or another navigation method. If they clicked to another page on a sample site, they would try to scroll back to home rather than clicking on the Home link in the menu.</li>
+                    <li>Each screen's worth of information should be tightly-focused and kept to a minimum. Patients didn't like a lot of content on a screen at once.</li>
+                </ul>
+
+                <h4>Reflections</h4>
+
+                <ul>
+                    <li>The conventional wisdom is to sell a small business by showing the products and services available, and <em>then</em> list the contact information/book an appointment as a call to action. The patients I interviewed preferred to find out the contact information and location <em>first</em>, and then contact the clinic to determine if the services fit their needs.</li>
+                    <li>It was noted in the brief that minimal content was preferred by the stakeholders, but the patient interviews indicated content and layout should be even more minimal than previously supposed.</li>
+                </ul>
+
+
+                <p class="cta"><a href="#caseStudies" class="look">See more case studies</a></p>
+
+                <h3 id="bwcWireframes">Beaches Wellness Centre: Wireframes & Testing</h3>
+
+                <p><em>2021</em></p>
+
+                <h4>Research</h4>
+
+                <p><strong>Colour scheme: </strong>the competitive analysis from the Research phase showed that most competing local sites used blues, greens, oranges, or greys as their major colours. The stakeholders and I both searched independently for inspirational sites to get ideas for a colour scheme, and both of us brought forward different sites with a black & white colour scheme with gold accents.</p>
+                
+                <p><strong>Navigation elements: </strong>the two menu options for mobile were a hamburger menu, or a button bar at the bottom of the screen. The stakeholders and I agreed to conduct A/B testing to determine which was best.</p>
+
+                <h4>The User's Needs & Pain Points</h4>
+
+                <p>By focusing on the data and the research results, very little elements were left up for discussion. Most choices can be traced back to the user research, competitive analysis, and the original brief from the stakeholders.</p>
+
+                <ul>
+                    <li>Key information for the home page was identified during the interviews.</li>
+                    <li>The results of the card sorting exercise are used to drive the content organization.</li>
+                </ul>
+
+                <h4>Design with Constraints</h4>
+
+                <p>In addition to the constraints already identified in the brief, the research phase identified additional constraints:</p>
+
+                <ul>
+                    <li>Create the mobile wireframes first, then the tablet and large-screen views.</li>
+                    <li>Since design had to accommodate content updates, structure was created first, then content.</li>
+                    <li>To ensure that the design fit on all screens, smaller/narrower options for each screen type were selected in Figma.</li>
+                </ul>
+
+                <h4>Ideation & Wireframing</h4>
+
+                <p><strong>Organizing information: </strong>before any design occurred, the content (or its placeholder) was organized into groups according to the card sort results.</p>
+
+                <p><strong>Mini design system: </strong>a very basic design system was created with <a href="https://rangle.io/radius/">Rangle.io&rsquo;s Radius</a> Figma template. The Figma template let me ensure the colours, text styles, and other elements were accessible and usable before creating the wireframes. It also let me apply already-created styles in the wireframe project without having to work through them as the wireframes were created.</p>
+
+                <p><strong>Collect icons and create elements: </strong></p>
+
+                <h4>Key Design Decisions</h4>
+
+                <p><strong>Gold text</strong> is tricky to implement because it&rsquo;s in the medium range for hex values and it can be challenging to find sufficient contrast to meet WCAG 2.1 AA standards. This was mitigated by using slightly different shades of gold against the black and white backgrounds to ensure each background had sufficient contrast.</p>
+                
+                <p><strong>The About section</strong> has three subsections, which makes it the longest section. Research indicated it would also be the least-visited part of the site. Therefore, to keep the menu short and simple, the subsections were removed from the main menu. Links at the top of each About subsection allow vistors to navigate quickly within the main section.</p>
+
+                <h4>Test & Review Solution</h4>
+
+                <p>After a few initial review rounds with the stakeholders, two versions of the interactive wireframes were tested with patients:</p>
+                <ul>
+                    <li><strong>Hamburger menu: </strong>the traditional hamburger menu was shown at the top of the mobile view, with a menu drawer which appeared when the visitor tapped the hamburger icon.</li>
+                    <li><strong>Button bar: </strong>a button bar was added to the bottom of the mobile screen, with only the major sections (Home, News, About) shown as buttons.</li>
+                </ul>
+
+                <p>I made a temporary "secret" link on each version of the home page so that testers could switch between the hamburger menu and button bar solutions easily, showed the vistors how to switch between the two solutions, and asked them to find different sections. The testers also read through the wireframes while chatting with me informally (essentially <strong>guerilla testing</strong>).</p>
+
+
+                <h4>Reflections</h4>
+
+                <p>There were never really any major showstoppers in the process because the business owner and other business stakeholders were kept informed throughout the process. The only time I did an experiment on my own was when I redesigned the home page, and evne then the feedback loop was strong enough that they were able to choose from the samples I made quickly so we could move on to evaluating the update with guerilla testing.</p>
+
+                <p>Using the Radius mini-design system let the stakeholders and I build up a set of design conventions which complied with accessibility standards very quickly and easily.</p>
+            
+
+                <p class="cta"><a href="#caseStudies" class="look">See more case studies</a></p>
+
+
+                <h3 id="thisSite">This Site: Semantic HTML & CSS</h3>
+
+                <p><em>2021</em></p>
+
+                <p>
+                    I consume a <em>lot</em> of media about design commentary. Every week I receive nnGroup&rsquo;s AlertBox newsletter, listen to a couple of podcasts, and read some articles, not to mention attending webinars. Before the pandemic, I was a regular attendee of the local Design System Meetup, and still attend online.
+                </p>
+
+                <p>
+                    One recurring theme I noticed was warnings about not using overly themed, overly &ldquo;off the shelf&rdquo; portfolio designs. Usually the author would state it was all right to start from a template, but if you didn&rsquo;t personalize it... well, what were you showing people about what you could do?
+                </p>
+
+                <p>
+                    Not only did I completely agree with that, but I also have the challenge that the strict security I work under means I can&rsquo;t show anything that I have actually worked on from work unless it has been made public (and since we are overwhelmingly B:B in our focus, none of it has been).
+                </p>
+
+                <p>
+                    It was also important to me to write everything from scratch. Don&rsquo;t get me wrong, I&rsquo;ve used a lot of Bootstrap (often with React) at work, but it seemed to me that a Bootstrap site just proved I knew Bootstrap. I wanted to show how a site looked if I wrote it from scratch.
+                </p>
+
+                <p>
+                    Besides, it sounded like fun.
+                </p>
+
+                <h4>Research</h4>
+
+                <p>
+                    The first thing I did was look at a lot of people&rsquo;s design portfolios, and at a lot of portfolio templates. I didn&rsquo;t want to use any of the templates directly, just get ideas for how to organize and present the information. I also conducted a <strong>self-branding exercise</strong> with some trusted colleagues. We all did our own profiles and then critqued each other&rsquo;s work.</p>
+                
+                <p>
+                    I then outlined how I wanted the portfolio to look and how I wanted to approach the work.
+                </p>
+
+                <h4>The User's Needs & Pain Points</h4>
+    
+                <p>In the past twelve months, I've been involved with hiring two additional UX designers, reviewing resumes and portfolios, and conducting first-round interviews with another team member. I was grateful to see so many different approaches to constructing a portfolio, and to gather data points for what I wanted to show in my own portfolio:</p>
+
+                <ul>
+                    <li><strong>accessibility</strong> as part of the foundation, not an afterthought</li>
+                    <li><strong>minimal shortcuts & other people's work:</strong> style kits like Bootstrap and template platforms like Wix are great for speeding up projects, but not for showing what you know</li>
+                    <li><strong>product attitude:</strong> this is a product like any other I've worked on, and has gone through iterations like anything else I've done in a team setting</li>
+                    <li><strong>process and impact:</strong> ensure the process was both clearly stated, and clearly demonstrated</li>
+                    <li><strong>include a team:</strong> since on a real project I would be working with a team and receiving/incorporating feedback, I created a team of "stakeholders" from a group of peers &mdash; we critique and help each other regularly.</li>
+                </ul>
+
+                <h4>Design with Constraints</h4>
+
+                <p>For my portfolio, I wanted:</p>
+
+                <ul>
+                    <li>HTML with a clear structure, both to make it easy to meet WCAG standards and to make it easy to update and maintain</li>
+                    <li>CSS that was easy to maintain and apply (with no surprises)</li>
+                    <li>reasonably fast performance, because I've noticed that a lot of portfolios are so graphics-heavy they perform poorly</li>
+                </ul>
+
+                <h4>Ideation</h4>
+
+                <p> The site you&rsquo;re looking at now was inspired by three different portfolio templates. Instead of just blindly copying & pasting code, I wrote all the semantic HTML myself, using the templates as visual guides.</p>
+
+                <h4>Key Design Decisions</h4>
+
+                <p><strong>Structure</strong></p>
+
+                <ul>
+                    <li>The CSS started with a copy of the <strong>classless <a href="https://andybrewer.github.io/mvp/" target="_blank">mvp.css <span class="fas fa-external-link-alt" title="external link"></span><span class="sr-only">(external link)</span></a></strong> template, which was then expanded and updated to suit the content and theme. The advantage of using mvp.css as a foundation is that it strongly encourages the use of <strong>semantic HTML</strong>, that is, HTML whose tags largely indicate the purpose of each tag set (as opposed to, say, just using &lt;div&gt; tags for each content block.</li>
+                    <li>Semantic HTML also makes it easier to meet WCAG accessibility standards, since that's that WCAG includes in its standards.</li>
+                    <li>I decided to keep all the content in one long page, rather than having users flip back and forth between the main page and each case study. It does make for a long page, but the navigation lets users skip from section to section, and people who want to read all the content can simply scroll.</li>
+                </ul>   
+
+                <p><strong>Look & feel</strong></p>
+
+                <ul>
+                    <li>The section, button, and link colours are all based on the entry page conceptual image (a photo I took at a Winter Stations festival).</li>
+                    <li>I'd noticed a lot of portfolios tend towards very light text in medium grey. This makes it harder to comply with accessibility standards, with text in light weights nearly disappearing, even if the colour contrast between foreground and background.</li>
+                    <li>Margins, spacing, and letter/word spacing added whitespace without sacrificing readability.</li>
+                </ul>
+
+                <h4>Validate Solution</h4>
+
+                <ul>
+                    <li>reviewed each iteration with my &ldquo;stakeholder&rdquo; team</li>
+                    <li>checked on multiple devices for responsiveness</li>
+                    <li>tested all interactive parts on multiple devices</li>
+                    <li>checked against accessibility checkers</li>
+
+                </ul>
+
+                <h4>Reflections</h4>
+
+                <p>I'm glad I followed the same steps I would have used for any other project.</p>
+
+                <ul>
+
+                </ul>
+
+                <p class="cta"><a href="#caseStudies" class="look">See more case studies</a></p>
+
+
+            </section>
+        </article>
+
+        <article id="contact">
+            <section>
+                <header>
+                    <h2>Contact Me</h2>
+                </header>
+                    <p>Want to talk to me about something? The two best ways are via <a href="https://www.linkedin.com/in/katherine-hajer/">LinkedIn</a>, or by email at <a href="mailto:katherine.hajer@gmail.com">katherine.hajer@gmail.com</a>.</p>
+
+                    <p>How did I get here? My resume explains.</p>
+            </section>
+        </article>
     </main>
+
+    <script>
+
+        function classToggle() {
+            const navs = document.querySelectorAll('.Navbar__Items');
+
+            navs.forEach(nav => nav.classList.toggle('Navbar__ToggleShow'));
+        }
+
+        document.querySelector('.Navbar__Link-toggle')
+            .addEventListener('click', classToggle);
+    </script>
 </body>
+
 </html>
