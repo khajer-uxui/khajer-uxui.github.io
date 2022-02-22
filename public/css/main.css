@@ -760,3 +760,13 @@ header div p a:hover, a:focus {
 .decorRight {
     align-self: right;
 }
+
+.illoContainer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.illoBorder {
+    border: 1px solid #000;
+}
