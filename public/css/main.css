@@ -759,6 +759,7 @@ header div p a:hover, a:focus {
 
 .decorRight {
     align-self: right;
+    padding-left: 2%;
 }
 
 .illoContainer {
