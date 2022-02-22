@@ -745,7 +745,7 @@ header div p a:hover, a:focus {
 }
 
 
-.contactImg {
+.flexImage {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
