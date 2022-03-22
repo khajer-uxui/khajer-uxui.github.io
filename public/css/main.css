@@ -96,7 +96,6 @@ section {
     /* border: 3px solid blue; */
     max-width: var(--width-content);
     padding: 2rem 1rem;
-    background-color: yellow;
 }
 
 section aside {
