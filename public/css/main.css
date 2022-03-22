@@ -776,7 +776,7 @@ header div p a:hover, a:focus {
 
 .illoContainer {
     display: flex;
-    width: 100%;
+    width: 90%;
     justify-content: center;
 }
 
