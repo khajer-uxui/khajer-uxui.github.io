@@ -623,7 +623,6 @@ blockquote footer {
 header div p a {
     color: var(--color-secondary);
     background-color: var(--color-bg);
-    border: var(--color-secondary) solid .3vw;
     text-align: center;
     padding-top: .3rem;
     padding-bottom: .3rem;
@@ -631,11 +630,12 @@ header div p a {
     padding-right: .5rem;
     border-radius: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.1em;
 }
 
 header div p a:hover, a:focus {
     background-color: var(--color-secondary);
+    /* border: var(--color-secondary) solid .3vw; */
     color: var(--color-bg);
 }
 
@@ -753,7 +753,7 @@ header div p a:hover, a:focus {
 .look {
     color: var(--color-secondary);
     background-color: var(--color-bg);
-    border: var(--color-secondary) solid .3vw;
+    /* border: var(--color-secondary) solid .3vw; */
     text-align: center;
     padding-top: .3rem;
     padding-bottom: .3rem;
@@ -767,6 +767,7 @@ header div p a:hover, a:focus {
 
 .look:hover, .look:focus {
     background-color: var(--color-secondary);
+    /* border: var(--color-secondary) solid .3vw; */
     color: var(--color-bg);
 }
 
