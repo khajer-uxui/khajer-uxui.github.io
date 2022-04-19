@@ -1,6 +1,7 @@
 /* MVP.css v1.6 - https://github.com/andybrewer/mvp */
 @import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Alata&display=swap'); */
 
 *,
 *::after,
@@ -20,8 +21,9 @@
     --color-shadow: #f4f4f4;
     --color-text: #000;
     --color-text-secondary: #999;
-    --font-heading: Alata, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-    --font-body: 'PT Serif', serif;
+    --font-heading: Ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Cantarell, "Helvetica Neue", sans-serif;
+    /* --font-body: 'PT Serif', serif; */
+    --font-body: 'Ubuntu', sans-serif;
     --hover-brightness: .75;
     --justify-important: left;
     --justify-normal: left;
@@ -213,6 +215,12 @@ nav ul li {
     text-align: left;
 }
 
+nav ul li a {
+    text-transform: uppercase;
+    font-weight: 700;
+
+}
+
 .Navbar__Link-toggle {
     display: none;
 }
@@ -391,8 +399,9 @@ a {
 
 }
 
-p > a {
+p > a, li > a {
     text-transform: none;
+    font-weight: 500;
 }
 
 a:hover, a:focus {
@@ -748,6 +757,7 @@ header div p a:hover, a:focus {
     padding-right: .5rem;
     border-radius: 10px;
     text-transform: uppercase;
+    font-weight: 700;
     letter-spacing: 0.2em;
 }
 
