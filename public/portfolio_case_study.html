@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Case Study</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Design System CSS Variables */
+        :root {
+            /* reused colours */
+            /* --accent-light: #D12600;
+            --accent-dark: #FFA894  ; */
+            --accent-light: #73D4FF;
+            --accent-dark: #73D4FF  ;
+            --base-grey: #0f172a;
+            
+            /* same across dark and light -- official brand colour */
+            --branding: #73D4FF;
+
+            /* Theme Colors */
+            --background: #f8fafc;
+            --background-variant: #f1f5f9;
+            --background-card: #ffffff;
+            --on-background: var(--base-grey);
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --primary: var(--accent-light);
+            --on-primary: var(--base-grey);
+            --secondary: #0f172a;
+            --on-secondary: #e2e8f0;
+            --outline: #e2e8f0;
+            --focus-ring: var(--accent-light);
+
+            
+            /* Typography */
+            --font-family: 'Open Sans', sans-serif;
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            
+            /* Spacing */
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            --spacing-12: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            
+
+                        
+        }
+        
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --background: var(--base-grey);
+            --background-variant: #1e293b;
+            --background-card: #1e293b;
+            --on-background: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --primary: var(--accent-dark);
+            --on-primary: var(--base-grey);
+            --secondary: #e2e8f0;
+            --on-secondary: #1e293b
+            --outline: #334155;
+            --focus-ring: var(--accent-dark);
+        }
+        
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            color: var(--on-background);
+            background-color: var(--background);
+            transition: all 0.3s ease;
+        }
+        
+        /* Layout Components */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-6);
+
+            overflow: visible;
+
+        }
+        
+        .header {
+            background-color: var(--background-card);
+            border-bottom: 1px solid var(--outline);
+            padding: var(--spacing-4) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+
+            overflow: visible;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-4);
+        }
+        
+        .logo {
+            font-family: "bebas neue", sans-serif;
+            font-size: var(--font-size-3xl);
+            font-weight: 400;
+            color: var(--base-grey);
+            text-decoration: none;
+  
+            position: relative;
+            display: inline-block;
+            padding: 0.1em .5em 0.04em .5em;
+            z-index: 1;
+            }
+
+        .logo::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;        /* wider blob */
+            height: 140%;       /* slightly more visual height if needed */
+            background-image: url("img/blob.svg");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            background-position: center;
+            z-index: -1;
+            pointer-events: none;
+            }
+
+        .nav {
+            display: flex;
+            gap: var(--spacing-6);
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-link:hover,
+        .nav-link:focus {
+            color: var(--primary);
+            outline: none;
+        }
+        
+        .controls {
+            display: flex;
+            gap: var(--spacing-3);
+            align-items: center;
+        }
+        
+        /* Button Components */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-2);
+            padding: var(--spacing-2) var(--spacing-4);
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: "Open Sans", sans-serif;
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 44px; /* WCAG AA touch target */
+            position: relative;
+        }
+        
+        .btn:focus {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--on-primary);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--background-variant);
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            /* do something here */
+            background-color: var(--primary);
+        }
+        
+        .btn-secondary {
+            color: var(--on-background);
+
+            border: 2px solid var(--outline);
+            background-color: var(--background-card);
+
+        }
+        
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--background-variant);
+            color: var(--on-background);
+        }
+        
+        .btn-icon {
+            padding: var(--spacing-2);
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        .color-icon {
+            width: 2em;
+            height: 2em;
+            border-radius: 50%;
+            display: inline-block;
+            background-color: gray; /* default, overridden inline */
+            }
+
+        .color-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5em;
+
+            min-height: 44px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+
+            border: 2px solid var(--outline);
+            background-color: var(--background-card);
+
+            flex: 1 1 115px; /* Grow, shrink, and set a minimum width */
+            max-width: 115px;
+
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .color-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: clamp(0.5em, 2vw, 1em); 
+
+            margin-bottom: var(--spacing-4);
+        }
+        
+        /* Card Components */
+        .card {
+            background-color: var(--background-card);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-6);
+            box-shadow: var(--shadow-sm);
+        }
+                
+        /* Form Components */
+        .form-group {
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-2);
+            font-weight: 500;
+            color: var(--on-background);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: var(--spacing-3);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            background-color: var(--background-card);
+            color: var(--on-background);
+            min-height: 44px;
+            transition: all 0.2s ease;
+        }
+        
+        .form-input:focus {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+            border-color: var(--primary);
+        }
+        
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23374151'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+        }
+        
+        /* Main Content */
+        .main {
+            padding: var(--spacing-8) 0;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: var(--spacing-12);
+        }
+        
+        .hero h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-4);
+            color: var(--on-background);
+        }
+        
+        .hero p {
+            font-size: var(--font-size-lg);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-6);
+            margin-bottom: var(--spacing-12);
+        }
+        
+        .feature h3 {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            margin-bottom: var(--spacing-3);
+        }
+        
+        .feature p {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .svg-showcase {
+            margin-bottom: var(--spacing-8);
+        }
+
+        .svg-introduction {
+            text-align: center;
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .svg-controls {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-6);
+            flex-wrap: wrap;
+        }
+        
+        .svg-container {
+            display: inline-block;
+            padding: var(--spacing-4);
+            background-color: var(--background-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: var(--spacing-3);
+            }
+            
+            .nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .color-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .card {
+                border-width: 2px;
+            }
+            
+            .btn {
+                border-width: 2px;
+            }
+        }
+        
+        /* Focus indicators for keyboard navigation */
+        .btn:focus-visible,
+        .form-input:focus-visible,
+        .nav-link:focus-visible {
+            outline: 2px solid var(--focus-ring);
+            outline-offset: 2px;
+        }
+        
+        /* Animation for theme transitions */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .svg-demo-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: var(--spacing-8);
+            }
+
+        .svg-demo-container > * {
+            flex: 1 1 312px;     /* Grow and shrink but minimum 300px */
+            
+            }
+
+
+        .svg-controls-panel {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-6);
+        }
+        
+        .control-group {
+            background-color: var(--background-card);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-5);
+        }
+        
+        .control-group h3 {
+            margin-bottom: var(--spacing-4);
+            color: var(--on-background);
+            font-size: var(--font-size-lg);
+        }
+                
+        .svg-display-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-4);
+        }
+        
+        .svg-container {
+            background-color: var(--background-card);
+            border: 1px solid var(--outline);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-6);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        #customizable-svg {
+            width: 100%;
+            height: auto;
+            max-width: 600px;     /* optional cap */
+            aspect-ratio: 400 / 250;
+            display: block;       /* prevent default inline sizing quirks */
+            }
+        
+        .svg-actions {
+            display: flex;
+            gap: var(--spacing-3);
+        }
+        
+    </style>
+</head>
+<body>
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <!-- <a href="#" class="logo">Carteo</a> -->
+                <span href="#" class="logo">Carteo</span>
+                
+                <nav class="nav" role="navigation" aria-label="Main navigation">
+                    <a href="#" class="nav-link" data-translate="nav.home">Home</a>
+                    <a href="#" class="nav-link" data-translate="nav.features">Features</a>
+                    <a href="#" class="nav-link" data-translate="nav.about">About</a>
+                    <a href="#" class="nav-link" data-translate="nav.contact">Contact</a>
+                </nav>
+                
+                <div class="controls">
+                    <button class="btn btn-icon btn-secondary" id="theme-toggle" aria-label="Toggle theme">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </button>
+                    
+                    <select class="form-input form-select" id="language-select" aria-label="Select language">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="main" id="main-content" role="main">
+        <div class="container">
+            <section class="hero">
+                <h1 data-translate="hero.title">Modern Design System</h1>
+                <p data-translate="hero.subtitle">A comprehensive, accessible, and multilingual design system showcasing best practices in UI/UX design.</p>
+            </section>
+            
+            <section class="features">
+                <div class="card feature">
+                    <h3 data-translate="features.accessibility.title">WCAG AA Compliant</h3>
+                    <p data-translate="features.accessibility.description">Built with accessibility in mind, featuring proper focus management, semantic HTML, and keyboard navigation support.</p>
+                    <button class="btn btn-primary" data-translate="features.accessibility.cta">Learn More</button>
+                </div>
+                
+                <div class="card feature">
+                    <h3 data-translate="features.multilingual.title">Multilingual Support</h3>
+                    <p data-translate="features.multilingual.description">Seamlessly switch between English and French with dynamic content translation and RTL support.</p>
+                    <button class="btn btn-primary" data-translate="features.multilingual.cta">Explore</button>
+                </div>
+                
+                <div class="card feature">
+                    <h3 data-translate="features.theming.title">Dark & Light Themes</h3>
+                    <p data-translate="features.theming.description">Beautiful themes that respect user preferences with smooth transitions and consistent color schemes.</p>
+                    <button class="btn btn-primary" data-translate="features.theming.cta">Learn More</button>
+                </div>
+            </section>
+            
+            <section class="svg-showcase">
+                <div class="svg-introduction">
+                    <h2 data-translate="svg.title">Customizable SVG Templates</h2>
+                    <p data-translate="svg.description">Interactive SVG with customizable text and styling - perfect for certificates, business cards, or form templates.</p>
+                </div>
+            
+                
+                <div class="svg-demo-container">
+                    <div class="svg-controls-panel">
+                        <div class="control-group">
+                            <div class="form-group">
+                                <h3 data-translate="svg.styling.template">Template</h3>
+                                <select id="svg-template" class="form-input form-select" onchange="changeSVGTemplate()">
+                                    <option value="business-card" data-translate="svg.template.business">Business Card</option>
+                                    <option value="certificate" data-translate="svg.template.certificate">Certificate</option>
+                                    <option value="badge" data-translate="svg.template.badge">Badge</option>
+                                </select>
+                            </div>
+
+                            <h3 data-translate="svg.content.title">Content</h3>
+                            <div class="form-group">
+                                <label for="svg-name" class="form-label" data-translate="svg.content.name">Name</label>
+                                <input type="text" id="svg-name" class="form-input" placeholder="John Doe" data-translate-placeholder="svg.content.name.placeholder" oninput="updateSVGText()">
+                            </div>
+                            <div class="form-group">
+                                <label for="svg-title" class="form-label" data-translate="svg.content.title_label">Title</label>
+                                <input type="text" id="svg-title" class="form-input" placeholder="UX Designer" data-translate-placeholder="svg.content.title.placeholder" oninput="updateSVGText()">
+                            </div>
+                            <div class="form-group">
+                                <label for="svg-company" class="form-label" data-translate="svg.content.company">Company</label>
+                                <input type="text" id="svg-company" class="form-input" placeholder="Design Studio" data-translate-placeholder="svg.content.company.placeholder" oninput="updateSVGText()">
+                            </div>
+                            <div class="form-group">
+                                <label for="svg-email" class="form-label" data-translate="svg.content.email">Email</label>
+                                <input type="email" id="svg-email" class="form-input" placeholder="john@example.com" data-translate-placeholder="svg.content.email.placeholder" oninput="updateSVGText()">
+                            </div>
+                            <h3 data-translate="svg.styling.title">Styling</h3>
+                            <div class="color-buttons">
+                                <button class="btn color-btn" onclick="changeSVGTheme('blue', '#3b82f6')">
+                                    <span class="color-icon" style="background-color: #3b82f6;"></span>
+                                    <span  data-translate="svg.blue">Blue</span>
+                                </button>
+
+                                <button class="btn btn-secondary color-btn" onclick="changeSVGTheme('green', '#10b981')">
+                                    <span class="color-icon" style="background-color: #10b981;"></span>
+                                    <span data-translate="svg.green">Green</span>
+                                </button>
+
+                                <button class="btn btn-secondary color-btn" onclick="changeSVGTheme('red', '#F32020')">
+                                    <span class="color-icon" style="background-color: #F32020;"></span>
+                                    <span data-translate="svg.red">Red</span>
+                                </button>
+                                
+                                <button class="btn btn-secondary color-btn" onclick="changeSVGTheme('purple', '#8b5cf6')">
+                                    <span class="color-icon" style="background-color: #8b5cf6;"></span>
+                                    <span data-translate="svg.purple">Purple</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="svg-display-container">
+                        <div class="svg-container">
+                            <!-- <svg id="customizable-svg" width="400" height="250" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg"> -->
+                            <svg id="customizable-svg" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid meet" ...></svg>
+                                <!-- Background -->
+                                <rect width="400" height="250" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="8"/>
+                                
+                                <!-- Header decoration -->
+                                <rect x="0" y="0" width="400" height="60" fill="#3b82f6" rx="8" ry="8"/>
+                                <rect x="0" y="52" width="400" height="8" fill="#3b82f6"/>
+                                
+                                <!-- Decorative elements -->
+                                <circle cx="350" cy="30" r="20" fill="rgba(255,255,255,0.2)"/>
+                                <circle cx="320" cy="30" r="15" fill="rgba(255,255,255,0.1)"/>
+                                <rect x="20" y="15" width="30" height="30" fill="rgba(255,255,255,0.2)" rx="4"/>
+                                
+                                <!-- Text content -->
+                                <text id="svg-name-text" x="30" y="100" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1e293b">John Doe</text>
+                                <text id="svg-title-text" x="30" y="125" font-family="Arial, sans-serif" font-size="16" fill="#64748b">UX Designer</text>
+                                <text id="svg-company-text" x="30" y="145" font-family="Arial, sans-serif" font-size="14" fill="#64748b">Design Studio</text>
+                                
+                                <!-- Contact info -->
+                                <text id="svg-email-text" x="30" y="180" font-family="Arial, sans-serif" font-size="12" fill="#64748b">john@example.com</text>
+                                
+                                <!-- Logo placeholder -->
+                                <g id="svg-logo" transform="translate(300, 160)">
+                                    <rect width="60" height="60" fill="#e2e8f0" rx="8"/>
+                                    <text x="30" y="35" font-family="Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">LOGO</text>
+                                </g>
+                            </svg>
+                        </div>
+                        
+                        <div class="svg-actions">
+                            <button class="btn btn-primary" onclick="downloadSVG()" data-translate="svg.download">Download SVG</button>
+                            <button class="btn btn-secondary" onclick="printSVG()" data-translate="svg.print">Print</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <script>
+        // initialize theme color
+        let currentThemeColor = '#3b82f6'; // Default blue color
+
+        // Translation data
+        const translations = {
+            en: {
+                "nav.home": "Home",
+                "nav.features": "Features",
+                "nav.about": "About",
+                "nav.contact": "Contact",
+                "hero.title": "Modern Design System",
+                "hero.subtitle": "A comprehensive, accessible, and multilingual design system showcasing best practices in UI/UX design.",
+                "features.accessibility.title": "WCAG AA Compliant",
+                "features.accessibility.description": "Built with accessibility in mind, featuring proper focus management, semantic HTML, and keyboard navigation support.",
+                "features.accessibility.cta": "Learn More",
+                "features.multilingual.title": "Multilingual Support",
+                "features.multilingual.description": "Seamlessly switch between English and French with dynamic content translation and RTL support.",
+                "features.multilingual.cta": "Explore",
+                "features.theming.title": "Dark & Light Themes",
+                "features.theming.description": "Beautiful themes that respect user preferences with smooth transitions and consistent color schemes.",
+                "features.theming.cta": "Learn More",
+                "svg.title": "Customizable SVG Templates",
+                "svg.description": "Interactive SVG with customizable text and styling - perfect for certificates, business cards, or form templates.",
+                "svg.content.title": "Content",
+                "svg.content.name": "Name",
+                "svg.content.name.placeholder": "Enter your name",
+                "svg.content.title_label": "Title",
+                "svg.content.title.placeholder": "Enter your title",
+                "svg.content.company": "Company",
+                "svg.content.company.placeholder": "Enter company name",
+                "svg.content.email": "Email",
+                "svg.content.email.placeholder": "Enter email address",
+                "svg.styling.title": "Styling",
+                "svg.styling.template": "Template",
+                "svg.template.business": "Business Card",
+                "svg.template.certificate": "Certificate",
+                "svg.template.badge": "Badge",
+                "svg.blue": "Blue",
+                "svg.green": "Green",
+                "svg.purple": "Purple",
+                "svg.red": "Red",
+                "svg.download": "Download SVG",
+                "svg.print": "Print",
+                "demo.title": "Interactive Demo",
+                "demo.name": "Name",
+                "demo.name.placeholder": "Enter your name",
+                "demo.email": "Email",
+                "demo.email.placeholder": "Enter your email",
+                "demo.preference": "Preference",
+                "demo.preference.design": "Design",
+                "demo.preference.development": "Development",
+                "demo.preference.both": "Both",
+                "demo.submit": "Submit"
+            },
+            fr: {
+                "nav.home": "Accueil",
+                "nav.features": "Fonctionnalités",
+                "nav.about": "À propos",
+                "nav.contact": "Contact",
+                "hero.title": "Système de Design Moderne",
+                "hero.subtitle": "Un système de design complet, accessible et multilingue présentant les meilleures pratiques en UI/UX.",
+                "features.accessibility.title": "Conforme WCAG AA",
+                "features.accessibility.description": "Conçu avec l'accessibilité à l'esprit, avec une gestion appropriée du focus, HTML sémantique et support de navigation clavier.",
+                "features.accessibility.cta": "En savoir plus",
+                "features.multilingual.title": "Support Multilingue",
+                "features.multilingual.description": "Basculez facilement entre l'anglais et le français avec traduction dynamique du contenu et support RTL.",
+                "features.multilingual.cta": "Explorer",
+                "features.theming.title": "Thèmes Sombre et Clair",
+                "features.theming.description": "Beaux thèmes qui respectent les préférences utilisateur avec transitions fluides et schémas de couleurs cohérents.",
+                "features.theming.cta": "En savoir plus",
+                "svg.title": "Modèles SVG Personnalisables",
+                "svg.description": "SVG interactif avec texte et style personnalisables - parfait pour certificats, cartes de visite ou modèles de formulaires.",
+                "svg.content.title": "Contenu",
+                "svg.content.name": "Nom",
+                "svg.content.name.placeholder": "Entrez votre nom",
+                "svg.content.title_label": "Titre",
+                "svg.content.title.placeholder": "Entrez votre titre",
+                "svg.content.company": "Entreprise",
+                "svg.content.company.placeholder": "Nom de l'entreprise",
+                "svg.content.email": "Email",
+                "svg.content.email.placeholder": "Adresse email",
+                "svg.styling.title": "Style",
+                "svg.styling.template": "Modèle",
+                "svg.template.business": "Carte de visite",
+                "svg.template.certificate": "Certificat",
+                "svg.template.badge": "Badge",
+                "svg.blue": "Bleu",
+                "svg.green": "Vert",
+                "svg.purple": "Violet",
+                "svg.red": "Rouge",
+                "svg.download": "Télécharger SVG",
+                "svg.print": "Imprimer",
+                "demo.title": "Démo Interactive",
+                "demo.name": "Nom",
+                "demo.name.placeholder": "Entrez votre nom",
+                "demo.email": "Email",
+                "demo.email.placeholder": "Entrez votre email",
+                "demo.preference": "Préférence",
+                "demo.preference.design": "Design",
+                "demo.preference.development": "Développement",
+                "demo.preference.both": "Les deux",
+                "demo.submit": "Soumettre"
+            }
+        };
+        
+        // State management
+        let currentLanguage = 'en';
+        let currentTheme = 'light';
+        
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTheme();
+            initializeLanguage();
+            setupEventListeners();
+        });
+        
+        // Theme management
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+        }
+        
+        function setTheme(theme) {
+            currentTheme = theme;
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            // Update theme toggle button icon
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('svg');
+            
+            if (theme === 'dark') {
+                icon.innerHTML = `
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                `;
+            } else {
+                icon.innerHTML = `
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                `;
+            }
+        }
+        
+        function toggleTheme() {
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        }
+        
+        // Language management
+        function initializeLanguage() {
+            const savedLanguage = localStorage.getItem('language') || 'en';
+            setLanguage(savedLanguage);
+        }
+        
+        function setLanguage(language) {
+            currentLanguage = language;
+            document.documentElement.setAttribute('lang', language);
+            localStorage.setItem('language', language);
+            
+            // Update language select
+            document.getElementById('language-select').value = language;
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[language] && translations[language][key]) {
+                    element.textContent = translations[language][key];
+                }
+            });
+            
+            // Update placeholders
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (translations[language] && translations[language][key]) {
+                    element.placeholder = translations[language][key];
+                }
+            });
+        }
+        
+        // SVG Template Management
+        const svgTemplates = {
+            'business-card': {
+                viewBox: '0 0 400 250',
+                preserveAspectRatio: 'xMidYMid meet', // or 'none' for stretching
+                elements: {
+                    background: '<rect width="400" height="250" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="8"/>',
+                    header: '<rect x="0" y="0" width="400" height="60" fill="#3b82f6" rx="8" ry="8"/><rect x="0" y="52" width="400" height="8" fill="#3b82f6"/>',
+                    decoration: '<circle cx="350" cy="30" r="20" fill="rgba(255,255,255,0.2)"/><circle cx="320" cy="30" r="15" fill="rgba(255,255,255,0.1)"/><rect x="20" y="15" width="30" height="30" fill="rgba(255,255,255,0.2)" rx="4"/>',
+                    textPositions: {
+                        name: { x: 30, y: 100, fontSize: 24, fontWeight: 'bold' },
+                        title: { x: 30, y: 125, fontSize: 16, fontWeight: 'normal' },
+                        company: { x: 30, y: 145, fontSize: 14, fontWeight: 'normal' },
+                        email: { x: 30, y: 180, fontSize: 12, fontWeight: 'normal' }
+                    },
+                    logo: '<g id="svg-logo" transform="translate(300, 160)"><rect width="60" height="60" fill="#e2e8f0" rx="8"/><text x="30" y="35" font-family="Arial, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">LOGO</text></g>'
+                }
+            },
+            'certificate': {
+                viewBox: '0 0 500 350',
+                preserveAspectRatio: 'xMidYMid meet', // or 'none' for stretching
+
+                elements: {
+                    background: '<rect width="500" height="350" fill="#f8fafc" stroke="#d4af37" stroke-width="4" rx="12"/>',
+                    header: '<rect x="50" y="30" width="400" height="80" fill="none" stroke="#d4af37" stroke-width="2" rx="8"/>',
+                    decoration: '<circle cx="250" cy="70" r="30" fill="#d4af37" opacity="0.1"/><path d="M235 55 L250 70 L265 55 L250 85 Z" fill="#d4af37"/>',
+                    textPositions: {
+                        name: { x: 250, y: 180, fontSize: 28, fontWeight: 'bold', textAnchor: 'middle' },
+                        title: { x: 250, y: 210, fontSize: 18, fontWeight: 'normal', textAnchor: 'middle' },
+                        company: { x: 250, y: 240, fontSize: 16, fontWeight: 'normal', textAnchor: 'middle' },
+                        email: { x: 250, y: 280, fontSize: 14, fontWeight: 'normal', textAnchor: 'middle' }
+                    },
+                    logo: '<g id="svg-logo" transform="translate(220, 300)"><rect width="60" height="30" fill="#d4af37" opacity="0.1" rx="4"/><text x="30" y="20" font-family="Arial, sans-serif" font-size="8" fill="#d4af37" text-anchor="middle">CERTIFIED</text></g>'
+                }
+            },
+            'badge': {
+                viewBox: '0 0 300 300',
+                preserveAspectRatio: 'xMidYMid meet', // or 'none' for stretching
+
+                elements: {
+                    background: '<circle cx="150" cy="150" r="140" fill="#f8fafc" stroke="#e2e8f0" stroke-width="4"/>',
+                    header: '<circle cx="150" cy="150" r="120" fill="none" stroke="#3b82f6" stroke-width="3"/>',
+                    decoration: '<circle cx="150" cy="80" r="25" fill="#3b82f6" opacity="0.1"/><polygon points="150,65 160,85 140,85" fill="#3b82f6"/>',
+                    textPositions: {
+                        name: { x: 150, y: 160, fontSize: 20, fontWeight: 'bold', textAnchor: 'middle' },
+                        title: { x: 150, y: 180, fontSize: 14, fontWeight: 'normal', textAnchor: 'middle' },
+                        company: { x: 150, y: 200, fontSize: 12, fontWeight: 'normal', textAnchor: 'middle' },
+                        email: { x: 150, y: 220, fontSize: 10, fontWeight: 'normal', textAnchor: 'middle' }
+                    },
+                    logo: '<g id="svg-logo" transform="translate(120, 240)"><rect width="60" height="20" fill="#3b82f6" opacity="0.1" rx="10"/><text x="30" y="14" font-family="Arial, sans-serif" font-size="8" fill="#3b82f6" text-anchor="middle">BADGE</text></g>'
+                }
+            }
+        };
+        
+        let currentTemplate = 'business-card';
+        // let currentThemeColor = '#3b82f6';
+        
+        // Update SVG text content
+        function updateSVGText() {
+            
+            const name = document.getElementById('svg-name').value || 'John Doe';
+            const title = document.getElementById('svg-title').value || 'UX Designer';
+            const company = document.getElementById('svg-company').value || 'Design Studio';
+            const email = document.getElementById('svg-email').value || 'john@example.com';
+            
+            const nameEl = document.getElementById('svg-name-text');
+            const titleEl = document.getElementById('svg-title-text');
+            const companyEl = document.getElementById('svg-company-text');
+            const emailEl = document.getElementById('svg-email-text');
+            
+            if (nameEl) nameEl.textContent = name;
+            if (titleEl) titleEl.textContent = title;
+            if (companyEl) companyEl.textContent = company;
+            if (emailEl) emailEl.textContent = email;
+            
+            // Announce change to screen readers
+            const message = currentLanguage === 'en' ? 
+                'SVG content updated' : 
+                'Contenu SVG mis à jour';
+            announceToScreenReader(message);
+        }
+        
+        // Change SVG theme and color
+        function changeSVGTheme(themeName, color) {
+            currentThemeColor = color;
+            const svg = document.getElementById('customizable-svg');
+            
+            // Update header/accent color
+            const headerElements = svg.querySelectorAll('rect[fill="' + svg.dataset.currentColor + '"], rect[fill="#3b82f6"]');
+            headerElements.forEach(el => {
+                el.setAttribute('fill', color);
+            });
+            
+            // Update decoration colors
+            const decorationElements = svg.querySelectorAll('circle[fill="rgba(255,255,255,0.2)"], rect[fill="rgba(255,255,255,0.2)"]');
+            decorationElements.forEach(el => {
+                el.setAttribute('fill', `rgba(255,255,255,0.2)`);
+            });
+            
+            // Store current color for future reference
+            svg.dataset.currentColor = color;
+            
+            // Add visual feedback
+            svg.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                svg.style.transform = 'scale(1)';
+            }, 150);
+            
+            // Announce change
+            const message = currentLanguage === 'en' ? 
+                `Theme changed to ${themeName}` : 
+                `Thème changé vers ${themeName}`;
+            announceToScreenReader(message);
+        }
+        
+        // Change SVG template
+        function changeSVGTemplate() {
+            const templateSelect = document.getElementById('svg-template');
+            const selectedTemplate = templateSelect.value;
+            currentTemplate = selectedTemplate;
+
+            console.log('Selected template:', selectedTemplate); // Debug
+            
+            const svg = document.getElementById('customizable-svg');
+            const template = svgTemplates[selectedTemplate];
+
+            console.log('Template object:', template); // Debug
+            console.log('Template textPositions:', template?.textPositions); // Debug
+
+            // Add safety check
+            if (!template) {
+                console.error('Template not found:', selectedTemplate);
+                return;
+            }
+
+            if (!template.elements.textPositions) {
+                const positions = template.elements.textPositions;
+                return;
+            }
+
+            // IMPORTANT: Clear the SVG completely first
+            svg.innerHTML = '';
+                            
+            // Update SVG dimensions
+            svg.setAttribute('viewBox', template.viewBox);
+            svg.setAttribute('preserveAspectRatio', template.preserveAspectRatio);
+
+            currentTemplate = selectedTemplate;
+                        
+            // Rebuild SVG content
+            let svgContent = template.elements.background + template.elements.header + template.elements.decoration;
+            
+            // Add text elements
+            const positions = template.elements.textPositions;
+            const name = document.getElementById('svg-name').value || 'John Doe';
+            const title = document.getElementById('svg-title').value || 'UX Designer';
+            const company = document.getElementById('svg-company').value || 'Design Studio';
+            const email = document.getElementById('svg-email').value || 'john@example.com';
+            
+            const textData = { name, title, company, email };
+            
+            Object.entries(positions).forEach(([key, pos]) => {
+                const textAnchor = pos.textAnchor || 'start';
+                svgContent += `<text id="svg-${key}-text" x="${pos.x}" y="${pos.y}" font-family="Arial, sans-serif" font-size="${pos.fontSize}" font-weight="${pos.fontWeight}" fill="#1e293b" text-anchor="${textAnchor}">${textData[key]}</text>`;
+            });
+            
+            // Add logo
+            svgContent += template.elements.logo;
+            
+            svg.innerHTML = svgContent;
+            
+            // Safety check before calling changeSVGTheme
+            if (!currentThemeColor) {
+                currentThemeColor = '#3b82f6'; // fallback color
+            }
+            
+            // Reapply current theme color
+            changeSVGTheme('current', currentThemeColor);
+            
+            // Announce change
+            const templateNames = {
+                'business-card': currentLanguage === 'en' ? 'Business Card' : 'Carte de visite',
+                'certificate': currentLanguage === 'en' ? 'Certificate' : 'Certificat',
+                'badge': currentLanguage === 'en' ? 'Badge' : 'Badge'
+            };
+            
+            const message = currentLanguage === 'en' ? 
+                `Template changed to ${templateNames[selectedTemplate]}` : 
+                `Modèle changé vers ${templateNames[selectedTemplate]}`;
+            announceToScreenReader(message);
+        }
+        
+        // Download SVG
+        function downloadSVG() {
+            const svg = document.getElementById('customizable-svg');
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+            const svgUrl = URL.createObjectURL(svgBlob);
+            
+            const downloadLink = document.createElement('a');
+            downloadLink.href = svgUrl;
+            downloadLink.download = `${currentTemplate}-${Date.now()}.svg`;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(svgUrl);
+            
+            // Announce download
+            const message = currentLanguage === 'en' ? 
+                'SVG downloaded successfully' : 
+                'SVG téléchargé avec succès';
+            announceToScreenReader(message);
+        }
+        
+        // Print SVG
+        function printSVG() {
+            const svg = document.getElementById('customizable-svg');
+            const svgData = new XMLSerializer().serializeToString(svg);
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Print SVG</title>
+                        <style>
+                            body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+                            svg { max-width: 100%; height: auto; }
+                        </style>
+                    </head>
+                    <body>
+                        ${svgData}
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+        
+        // Initialize SVG with default values
+        function initializeSVG() {
+            // Set default values
+            document.getElementById('svg-name').value = 'John Doe';
+            document.getElementById('svg-title').value = 'UX Designer';
+            document.getElementById('svg-company').value = 'Design Studio';
+            document.getElementById('svg-email').value = 'john@example.com';
+            
+            // Update SVG with default values
+            updateSVGText();
+            
+            // Set initial theme
+            changeSVGTheme('blue', '#3b82f6');
+        }
+        
+        // Event listeners
+        function setupEventListeners() {
+            // Theme toggle
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+            
+            // Language selector
+            document.getElementById('language-select').addEventListener('change', function(e) {
+                setLanguage(e.target.value);
+            });
+            
+            // Form demo
+            document.querySelector('.demo-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('user-name').value;
+                const email = document.getElementById('user-email').value;
+                const preference = document.getElementById('user-preference').value;
+                
+                if (name && email) {
+                    alert(currentLanguage === 'en' ? 
+                        `Thank you ${name}! Your preference for ${preference} has been noted.` :
+                        `Merci ${name}! Votre préférence pour ${preference} a été notée.`
+                    );
+                }
+            });
+            
+            // Keyboard navigation enhancement
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    document.body.classList.add('keyboard-navigation');
+                }
+            });
+            
+            document.addEventListener('mousedown', function() {
+                document.body.classList.remove('keyboard-navigation');
+            });
+        }
+        
+        // Accessibility enhancements
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+        
+        // Enhanced theme toggle with announcement
+        function toggleTheme() {
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+            
+            const message = currentLanguage === 'en' ? 
+                `Switched to ${newTheme} theme` : 
+                `Basculé vers le thème ${newTheme === 'dark' ? 'sombre' : 'clair'}`;
+            announceToScreenReader(message);
+        }
+        
+        // Enhanced language change with announcement
+        function setLanguage(language) {
+            const previousLanguage = currentLanguage;
+            currentLanguage = language;
+            document.documentElement.setAttribute('lang', language);
+            localStorage.setItem('language', language);
+            
+            // Update language select
+            document.getElementById('language-select').value = language;
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[language] && translations[language][key]) {
+                    element.textContent = translations[language][key];
+                }
+            });
+            
+            // Update placeholders
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (translations[language] && translations[language][key]) {
+                    element.placeholder = translations[language][key];
+                }
+            });
+            
+            // Announce language change
+            if (previousLanguage !== language) {
+                const message = language === 'en' ? 
+                    'Language changed to English' : 
+                    'Langue changée vers le français';
+                announceToScreenReader(message);
+            }
+        }
+        
+        // Progressive enhancement for reduced motion
+        function respectsReducedMotion() {
+            return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
+        
+        // Color contrast checker (for development)
+        function checkColorContrast(foreground, background) {
+            // This would typically use a color contrast library
+            // For demo purposes, we'll simulate the check
+            return {
+                ratio: 4.5, // Simulated ratio
+                passes: true,
+                level: 'AA'
+            };
+        }
+        
+        // Performance optimization
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+        
+        // Responsive image loading
+        function loadResponsiveImages() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            images.forEach(img => imageObserver.observe(img));
+        }
+        
+        // Component state management
+        class ComponentState {
+            constructor() {
+                this.state = {
+                    theme: 'light',
+                    language: 'en',
+                    svgColor: '#0ea5e9',
+                    formData: {}
+                };
+                this.subscribers = [];
+            }
+            
+            subscribe(callback) {
+                this.subscribers.push(callback);
+            }
+            
+            setState(newState) {
+                this.state = { ...this.state, ...newState };
+                this.subscribers.forEach(callback => callback(this.state));
+            }
+            
+            getState() {
+                return this.state;
+            }
+        }
+        
+        // Initialize component state
+        const appState = new ComponentState();
+        
+        // Error boundary for graceful error handling
+        window.addEventListener('error', function(e) {
+            console.error('Application error:', e.error);
+            // In a real application, you would send this to a logging service
+            
+            // Show user-friendly error message
+            const errorMessage = currentLanguage === 'en' ? 
+                'An error occurred. Please refresh the page.' : 
+                'Une erreur s\'est produite. Veuillez actualiser la page.';
+            announceToScreenReader(errorMessage);
+        });
+        
+        // Service worker registration for offline support
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // In a real application, you would register a service worker here
+                console.log('Service worker support detected');
+            });
+        }
+        
+        // Touch and gesture support
+        let touchStartX = 0;
+        let touchStartY = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        });
+        
+        document.addEventListener('touchend', function(e) {
+            const touchEndX = e.changedTouches[0].clientX;
+            const touchEndY = e.changedTouches[0].clientY;
+            
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            
+            // Implement swipe gestures if needed
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    // Swipe right
+                    console.log('Swipe right detected');
+                } else {
+                    // Swipe left
+                    console.log('Swipe left detected');
+                }
+            }
+        });
+        
+        // Analytics tracking (placeholder)
+        function trackEvent(eventName, properties) {
+            // In a real application, you would send this to an analytics service
+            console.log('Analytics event:', eventName, properties);
+        }
+        
+        // Track user interactions
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('button') || e.target.matches('a')) {
+                trackEvent('click', {
+                    element: e.target.tagName,
+                    text: e.target.textContent,
+                    theme: currentTheme,
+                    language: currentLanguage
+                });
+            }
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + Shift + T for theme toggle
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'T') {
+                e.preventDefault();
+                toggleTheme();
+            }
+            
+            // Ctrl/Cmd + Shift + L for language toggle
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'L') {
+                e.preventDefault();
+                const newLanguage = currentLanguage === 'en' ? 'fr' : 'en';
+                setLanguage(newLanguage);
+            }
+        });
+        
+        // Print styles support
+        window.addEventListener('beforeprint', function() {
+            document.body.classList.add('printing');
+        });
+        
+        window.addEventListener('afterprint', function() {
+            document.body.classList.remove('printing');
+        });
+        
+        // Custom CSS properties for dynamic theming
+        function updateCustomProperties() {
+            const root = document.documentElement;
+            const computedStyle = getComputedStyle(root);
+            
+            // Example of dynamic property updates
+            const primaryColor = computedStyle.getPropertyValue('--primary');
+            root.style.setProperty('--primary-hover', adjustColor(primaryColor, -10));
+        }
+        
+        function adjustColor(color, amount) {
+            // Simple color adjustment function
+            // In a real application, you would use a proper color manipulation library
+            return color;
+        }
+        
+        // Initialize all features
+        function initializeApp() {
+            initializeTheme();
+            initializeLanguage();
+            setupEventListeners();
+            loadResponsiveImages();
+            updateCustomProperties();
+            initializeSVG();
+            
+            // Announce app ready to screen readers
+            setTimeout(() => {
+                const message = currentLanguage === 'en' ? 
+                    'Application loaded successfully' : 
+                    'Application chargée avec succès';
+                announceToScreenReader(message);
+            }, 100);
+        }
+        
+        // Call initialization when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeApp);
+        } else {
+            initializeApp();
+        }
+    </script>
+</body>
+</html>

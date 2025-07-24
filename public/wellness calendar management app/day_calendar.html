@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day Calendar</title>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #5856eb;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --surface-hover: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .Dcalendar-container {
+            flex: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .Dcalendar-header {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+        }
+
+        .Dcalendar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .Dcalendar-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+                .calendar-grid {
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+            background: var(--background);
+        }
+
+        .Dtime-slot {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            min-height: 50px;
+        }
+
+        .Dtime-slot:last-child {
+            border-bottom: none;
+        }
+
+        .Dtime-label {
+            width: 80px;
+            padding: 8px 12px;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .Dtime-content {
+            flex: 1;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .Dtime-content:hover {
+            background: var(--surface-hover);
+        }
+
+        .Dtime-content.booked {
+            background: var(--primary-color);
+            color: white;
+            cursor: default;
+        }
+
+        .Dtime-content.booked:hover {
+            background: var(--primary-hover);
+        }
+
+        .Dtime-content.past {
+            background: var(--surface);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        .Dtime-content.past:hover {
+            background: var(--surface);
+        }
+
+        .Dtime-content.past.booked {
+            background: #94a3b8;
+            color: white;
+            cursor: default;
+        }
+
+        .Dtime-content.past.booked:hover {
+            background: #94a3b8;
+        }
+
+        .Dappointment {
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Navigation */
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .nav-button:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--surface);
+        }
+
+        .nav-button:disabled:hover {
+            background: var(--surface);
+            border-color: var(--border);
+        }
+
+        .nav-button.prev {
+            left: 20px;
+        }
+
+        .nav-button.next {
+            right: 20px;
+        }
+
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--background);
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 25px -5px var(--shadow);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .modal-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface-hover);
+        }
+
+        .error-message {
+            background: var(--error);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+
+        .quarter-hour {
+            height: 12.5px;
+            border-bottom: 1px dotted var(--border);
+        }
+
+        .quarter-hour:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="Dcalendar-container">
+            <div class="Dcalendar-header">
+                <button class="nav-button prev" id="prev-btn" onclick="navigateDate(-1)">← Previous</button>
+                <h1>Daily Schedule</h1>
+                <div class="Dcalendar-date" id="current-date"></div>
+                <button class="nav-button next" id="next-btn" onclick="navigateDate(1)">Next →</button>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+                <!-- Time slots will be generated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal-overlay" id="booking-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">Book Dappointment</h2>
+                <p class="modal-subtitle" id="booking-time"></p>
+            </div>
+            <div id="error-container"></div>
+            <form id="booking-form">
+                <div class="form-group">
+                    <label class="form-label" for="Dappointment-title">Dappointment Title</label>
+                    <input type="text" id="Dappointment-title" class="form-input" placeholder="Enter Dappointment title" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="duration">Duration</label>
+                    <select id="duration" class="form-select">
+                        <option value="1">15 minutes (1 slot)</option>
+                        <option value="2">30 minutes (2 slots)</option>
+                        <option value="3">45 minutes (3 slots)</option>
+                        <option value="4">60 minutes (4 slots)</option>
+                        <option value="6">90 minutes (6 slots)</option>
+                        <option value="8">120 minutes (8 slots)</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                    <button type="button" class="btn" id="remove-btn" style="display: none; background: var(--error); color: white;" onclick="handleRemove()">Remove</button>
+                    <button type="submit" class="btn btn-primary">Book Dappointment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Calendar data storage
+        let Dappointments = {}; // Structure: { 'YYYY-MM-DD': { slotIndex: Dappointment } }
+        let selectedSlotIndex = null;
+        let currentDate = new Date();
+
+        // Helper function to format date as YYYY-MM-DD
+        function formatDateKey(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // Helper function to check if a date is in the past (before today)
+        function isDateInPast(date) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const compareDate = new Date(date);
+            compareDate.setHours(0, 0, 0, 0);
+            return compareDate < today;
+        }
+
+        // Helper function to check if current time has passed for today's slots
+        function isSlotInPast(slotIndex, date) {
+            const today = new Date();
+            const compareDate = new Date(date);
+            
+            // First check if the date itself is in the past
+            if (isDateInPast(date)) {
+                return true;
+            }
+            
+            // If the date is not today, it's in the future, so slot is not in past
+            if (formatDateKey(compareDate) !== formatDateKey(today)) {
+                return false;
+            }
+            
+            // For today, check if the specific time slot has passed
+            const currentHour = today.getHours();
+            const currentMinutes = today.getMinutes();
+            const currentTotalMinutes = currentHour * 60 + currentMinutes;
+            
+            // Calculate slot time (starting from 9 AM = 540 minutes from midnight)
+            const slotTotalMinutes = 540 + (slotIndex * 15); // 9 AM = 540 minutes + slot offset
+            
+            return currentTotalMinutes > slotTotalMinutes;
+        }
+
+        // Generate time slots from 9 AM to 5 PM (15-minute increments)
+        function generateTimeSlots() {
+            const slots = [];
+            const startHour = 9;
+            const endHour = 17;
+            
+            for (let hour = startHour; hour < endHour; hour++) {
+                for (let quarter = 0; quarter < 4; quarter++) {
+                    const minutes = quarter * 15;
+                    const time24 = `${hour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+                    const time12 = formatTime12Hour(hour, minutes);
+                    slots.push({
+                        time24,
+                        time12,
+                        index: slots.length
+                    });
+                }
+            }
+            return slots;
+        }
+
+        function formatTime12Hour(hour, minutes) {
+            const period = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+            return `${displayHour}:${minutes.toString().padStart(2, '0')} ${period}`;
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            const slots = generateTimeSlots();
+            const dateKey = formatDateKey(currentDate);
+            const dayDappointments = Dappointments[dateKey] || {};
+            
+            grid.innerHTML = '';
+            
+            slots.forEach((slot, index) => {
+                const slotElement = document.createElement('div');
+                slotElement.className = 'Dtime-slot';
+                
+                const Dappointment = dayDappointments[index];
+                const isBooked = !!Dappointment;
+                const isPastSlot = isSlotInPast(index, currentDate);
+                
+                let contentClasses = 'Dtime-content';
+                if (isBooked) contentClasses += ' booked';
+                if (isPastSlot) contentClasses += ' past';
+                
+                slotElement.innerHTML = `
+                    <div class="Dtime-label">${slot.time12}</div>
+                    <div class="${contentClasses}" data-index="${index}">
+                        ${isBooked ? `<div class="Dappointment">${Dappointment.title}</div>` : ''}
+                    </div>
+                `;
+                
+                // Add double-click event listener for non-past slots
+                if (!isPastSlot) {
+                    const timeContent = slotElement.querySelector('.Dtime-content');
+                    if (isBooked) {
+                        timeContent.addEventListener('dblclick', () => openEditModal(index, slot, Dappointment));
+                    } else {
+                        timeContent.addEventListener('dblclick', () => openBookingModal(index, slot));
+                    }
+                }
+                
+                grid.appendChild(slotElement);
+            });
+            
+            // Update navigation buttons (no longer needed to disable any)
+            updateNavigationButtons();
+        }
+
+        function updateNavigationButtons() {
+            // Always allow navigation in both directions for viewing
+            // No disabled states for navigation buttons
+        }
+
+        function navigateDate(direction) {
+            const newDate = new Date(currentDate);
+            newDate.setDate(newDate.getDate() + direction);
+            
+            // Allow navigation to any date (past or future)
+            currentDate = newDate;
+            updateDateDisplay();
+            renderCalendar();
+        }
+
+        function updateDateDisplay() {
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            document.getElementById('current-date').textContent = currentDate.toLocaleDateString('en-US', options);
+        }
+
+        function openBookingModal(slotIndex, slot) {
+            selectedSlotIndex = slotIndex;
+            document.getElementById('booking-time').textContent = `Starting at ${slot.time12}`;
+            document.getElementById('modal-title').textContent = 'Book Dappointment';
+            document.getElementById('booking-modal').classList.add('show');
+            document.getElementById('Dappointment-title').focus();
+            document.getElementById('remove-btn').style.display = 'none';
+            clearError();
+        }
+
+        function openEditModal(slotIndex, slot, Dappointment) {
+            // Find the start of the Dappointment (in case user clicked on a continuation slot)
+            const startSlotIndex = Dappointment.startSlot;
+            selectedSlotIndex = startSlotIndex;
+            
+            const startSlot = generateTimeSlots()[startSlotIndex];
+            document.getElementById('booking-time').textContent = `Starting at ${startSlot.time12}`;
+            document.getElementById('modal-title').textContent = 'Edit Dappointment';
+            document.getElementById('Dappointment-title').value = Dappointment.title;
+            document.getElementById('duration').value = Dappointment.duration.toString();
+            document.getElementById('booking-modal').classList.add('show');
+            document.getElementById('Dappointment-title').focus();
+            document.getElementById('remove-btn').style.display = 'inline-block';
+            clearError();
+        }
+
+        function closeModal() {
+            document.getElementById('booking-modal').classList.remove('show');
+            document.getElementById('booking-form').reset();
+            document.getElementById('remove-btn').style.display = 'none';
+            clearError();
+            selectedSlotIndex = null;
+        }
+
+        function showError(message) {
+            const errorContainer = document.getElementById('error-container');
+            errorContainer.innerHTML = `<div class="error-message">${message}</div>`;
+        }
+
+        function clearError() {
+            document.getElementById('error-container').innerHTML = '';
+        }
+
+        function bookDappointment(title, duration) {
+            if (selectedSlotIndex === null) return false;
+
+            const dateKey = formatDateKey(currentDate);
+            if (!Dappointments[dateKey]) {
+                Dappointments[dateKey] = {};
+            }
+
+            // If editing an existing Dappointment, remove the old one first
+            if (Dappointments[dateKey][selectedSlotIndex]) {
+                removeDappointment(selectedSlotIndex);
+            }
+
+            // Check if any of the required slots are already booked
+            for (let i = 0; i < duration; i++) {
+                const slotIndex = selectedSlotIndex + i;
+                if (Dappointments[dateKey][slotIndex]) {
+                    showError(`Cannot book Dappointment: Slot at ${formatSlotTime(slotIndex)} is already booked.`);
+                    return false;
+                }
+                // Check if slot index is valid (within calendar bounds)
+                if (slotIndex >= 32) { // 8 hours * 4 slots per hour = 32 total slots
+                    showError('Cannot book Dappointment: Duration extends beyond calendar hours.');
+                    return false;
+                }
+            }
+
+            // Book all required slots
+            for (let i = 0; i < duration; i++) {
+                const slotIndex = selectedSlotIndex + i;
+                Dappointments[dateKey][slotIndex] = {
+                    title: title,
+                    startSlot: selectedSlotIndex,
+                    duration: duration
+                };
+            }
+
+            return true;
+        }
+
+        function removeDappointment(slotIndex) {
+            const dateKey = formatDateKey(currentDate);
+            const dayDappointments = Dappointments[dateKey];
+            if (!dayDappointments) return false;
+            
+            const Dappointment = dayDappointments[slotIndex];
+            if (!Dappointment) return false;
+            
+            const startSlot = Dappointment.startSlot;
+            const duration = Dappointment.duration;
+            
+            // Remove all slots for this Dappointment
+            for (let i = 0; i < duration; i++) {
+                delete dayDappointments[startSlot + i];
+            }
+            
+            return true;
+        }
+
+        function formatSlotTime(slotIndex) {
+            const startHour = 9;
+            const hour = Math.floor(slotIndex / 4) + startHour;
+            const minutes = (slotIndex % 4) * 15;
+            return formatTime12Hour(hour, minutes);
+        }
+
+        // Event listeners
+        document.getElementById('booking-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            console.log('Form submitted'); // Debug log
+            
+            const title = document.getElementById('Dappointment-title').value.trim();
+            const duration = parseInt(document.getElementById('duration').value);
+            
+            console.log('Title:', title, 'Duration:', duration, 'Selected slot:', selectedSlotIndex); // Debug log
+            
+            if (!title) {
+                showError('Please enter an Dappointment title.');
+                return;
+            }
+            
+            if (selectedSlotIndex === null) {
+                showError('No time slot selected.');
+                return;
+            }
+            
+            const success = bookDappointment(title, duration);
+            console.log('Booking success:', success); // Debug log
+            
+            if (success) {
+                closeModal();
+                renderCalendar();
+            }
+        });
+
+        function handleRemove() {
+            if (selectedSlotIndex !== null) {
+                const success = removeDappointment(selectedSlotIndex);
+                if (success) {
+                    closeModal();
+                    renderCalendar();
+                }
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('booking-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'booking-modal') {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('booking-modal').classList.contains('show')) {
+                closeModal();
+            }
+        });
+
+        // Initialize calendar
+        function init() {
+            // Set current date to today
+            currentDate = new Date();
+            updateDateDisplay();
+            renderCalendar();
+        }
+
+        init();
+    </script>
+</body>
+</html>

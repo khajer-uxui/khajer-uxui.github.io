@@ -1,0 +1,82 @@
+<!-- new HTML -->
+
+<div class="app-container">
+  <div class="calendar-container">
+    <div class="calendar-header">
+      <h1 id="calendar-range">July 22–27, 2025</h1>
+      <div class="calendar-date">Week View</div>
+      <button class="nav-button prev" onclick="navigateWeek(-1)">Prev</button>
+      <button class="nav-button next" onclick="navigateWeek(1)">Next</button>
+      <button class="nav-button today" onclick="goToToday()">Today</button>
+    </div>
+
+    <div class="calendar-grid">
+      <!-- Days will be injected here dynamically -->
+    </div>
+  </div>
+</div>
+
+<!-- new CSS -->
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Monday to Saturday */
+  gap: 12px;
+  background: var(--surface);
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+}
+
+.day-card {
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+  transition: background 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.day-card.today {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.day-card.past {
+  color: var(--text-secondary);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+<!-- new JS -->
+
+const calendarGrid = document.querySelector('.calendar-grid');
+const calendarRange = document.getElementById('calendar-range');
+const today = new Date();
+
+function generateWeek(startDate) {
+  calendarGrid.innerHTML = '';
+
+  const weekDates = [];
+  for (let i = 0; i < 6; i++) {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + i);
+    weekDates.push(date);
+  }
+
+  const options = { month: 'short', day: 'numeric' };
+  calendarRange.textContent = `${weekDates[0].toLocaleDateString(undefined, options)}–${weekDates[5].toLocaleDateString(undefined, options)}`;
+
+  weekDates.forEach(date => {
+    const isPast = date < today.setHours(0, 0, 0, 0);
+    const isToday = date.toDateString() === new Date().toDateString();
+
+    const div = document.createElement('div');
+    div.className = 'day-card' + (isPast ? ' past' : '') + (isToday ? ' today' : '');
+    div.textContent = date.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric' });
+
+    calendarGrid.appendChild(div);
+  });
+}

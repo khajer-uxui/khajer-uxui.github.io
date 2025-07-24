@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Calendar</title>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #5856eb;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --surface-hover: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .calendar-container {
+            flex: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .calendar-header {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+        }
+
+        .calendar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .calendar-date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .nav-button:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--surface);
+        }
+
+        .nav-button:disabled:hover {
+            background: var(--surface);
+            border-color: var(--border);
+        }
+
+        .nav-button.prev {
+            right: 80px;
+        }
+
+        .nav-button.next {
+            right: 20px;
+        }
+
+        .today-button {
+            background: var(--primary-color);
+            color: white;
+            border: 1px solid var(--primary-color);
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .today-button:hover {
+            background: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+
+        .calendar-grid {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+        }
+
+        .day-headers {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .day-header {
+            padding: 16px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            border-right: 1px solid var(--border);
+        }
+
+        .day-header:last-child {
+            border-right: none;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            min-height: 400px;
+        }
+
+        .day-cell {
+            border-right: 1px solid var(--border);
+            padding: 16px 8px;
+            background: var(--background);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            min-height: 100px;
+        }
+
+        .day-cell:last-child {
+            border-right: none;
+        }
+
+        .day-cell:hover {
+            background: var(--surface-hover);
+        }
+
+        .day-cell.past {
+            background: var(--surface);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+        }
+
+        .day-cell.past:hover {
+            background: var(--surface);
+        }
+
+        .day-cell.today {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            font-weight: 600;
+        }
+
+        .day-cell.today:hover {
+            background: linear-gradient(135deg, var(--primary-hover), var(--primary-color));
+        }
+
+        .day-number {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .appointments {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .appointment {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .appointment:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .day-cell.past .appointment {
+            background: var(--text-secondary);
+            opacity: 0.7;
+        }
+
+        .day-cell.past .appointment:hover {
+            background: var(--text-secondary);
+            transform: none;
+        }
+
+        .add-appointment {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--success);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .add-appointment:hover {
+            background: #0ea370;
+            transform: scale(1.1);
+        }
+
+        .day-cell.past .add-appointment {
+            display: none;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--background);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px var(--shadow);
+            max-width: 400px;
+            width: 90%;
+            animation: slideIn 0.2s ease;
+        }
+
+        .modal-header {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            background: var(--background);
+            color: var(--text-primary);
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .modal-button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .modal-button.primary {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .modal-button.primary:hover {
+            background: var(--primary-hover);
+            border-color: var(--primary-hover);
+        }
+
+        .modal-button.secondary {
+            background: var(--background);
+            color: var(--text-primary);
+        }
+
+        .modal-button.secondary:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px) scale(0.95); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 675px) {
+            .calendar-header h1 {
+                font-size: 1.2rem;
+            }
+
+            .nav-button, .today-button {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+
+            .nav-button.prev {
+                right: 70px;
+            }
+
+            .day-headers {
+                display: none;
+            }
+
+            .days-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+                background: var(--border);
+            }
+
+            .day-cell {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 16px;
+                min-height: auto;
+                display: flex;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .day-cell:last-child {
+                border-bottom: none;
+            }
+
+            .day-info {
+                min-width: 100px;
+                flex-shrink: 0;
+            }
+
+            .day-name {
+                font-weight: 600;
+                font-size: 0.9rem;
+                color: var(--text-secondary);
+                margin-bottom: 4px;
+            }
+
+            .day-cell.today .day-name {
+                color: white;
+            }
+
+            .day-number {
+                font-size: 1.5rem;
+                margin-bottom: 0;
+            }
+
+            .appointments {
+                flex: 1;
+                gap: 8px;
+            }
+
+            .appointment {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+                text-align: left;
+            }
+
+            .add-appointment {
+                position: static;
+                margin-top: 8px;
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button class="nav-button prev" onclick="previousWeek()">‹ Previous</button>
+                <h1 id="weekTitle"></h1>
+                <div class="calendar-date" id="weekRange"></div>
+                <button class="today-button" onclick="goToToday()">Today</button>
+                <button class="nav-button next" onclick="nextWeek()">Next ›</button>
+            </div>
+            <div class="calendar-grid">
+                <div class="day-headers">
+                    <div class="day-header">Monday</div>
+                    <div class="day-header">Tuesday</div>
+                    <div class="day-header">Wednesday</div>
+                    <div class="day-header">Thursday</div>
+                    <div class="day-header">Friday</div>
+                    <div class="day-header">Saturday</div>
+                </div>
+                <div class="days-grid" id="daysGrid">
+                    <!-- Days will be generated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for adding appointments -->
+    <div class="modal" id="appointmentModal">
+        <div class="modal-content">
+            <div class="modal-header">Add Appointment</div>
+            <input type="text" class="modal-input" id="appointmentInput" placeholder="Enter appointment details...">
+            <div class="modal-buttons">
+                <button class="modal-button secondary" onclick="closeModal()">Cancel</button>
+                <button class="modal-button primary" onclick="saveAppointment()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentWeekStart = new Date();
+        let selectedDay = null;
+        let appointments = {};
+
+        // Sample appointments
+        appointments = {
+            '2025-07-21': ['Team Meeting 10:00 AM', 'Lunch with Client 12:30 PM'],
+            '2025-07-22': ['Project Review 2:00 PM'],
+            '2025-07-23': ['Doctor Appointment 9:00 AM', 'Workshop 3:00 PM'],
+            '2025-07-25': ['Weekend Planning 11:00 AM']
+        };
+
+        function getMonday(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            return new Date(d.setDate(diff));
+        }
+
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function formatDisplayDate(date) {
+            return date.toLocaleDateString('en-US', { 
+                month: 'long', 
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        function isToday(date) {
+            const today = new Date();
+            return date.toDateString() === today.toDateString();
+        }
+
+        function isPast(date) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return date < today;
+        }
+
+        function renderCalendar() {
+            const monday = getMonday(currentWeekStart);
+            const sunday = new Date(monday);
+            sunday.setDate(sunday.getDate() + 5); // Saturday (6 days from Monday)
+
+            // Update header
+            document.getElementById('weekTitle').textContent = 'Weekly Calendar';
+            document.getElementById('weekRange').textContent = 
+                `${formatDisplayDate(monday)} - ${formatDisplayDate(sunday)}`;
+
+            // Clear and populate days
+            const daysGrid = document.getElementById('daysGrid');
+            daysGrid.innerHTML = '';
+
+            for (let i = 0; i < 6; i++) {
+                const currentDay = new Date(monday);
+                currentDay.setDate(monday.getDate() + i);
+                
+                const dayCell = document.createElement('div');
+                dayCell.className = 'day-cell';
+                dayCell.dataset.date = formatDate(currentDay);
+
+                if (isToday(currentDay)) {
+                    dayCell.classList.add('today');
+                } else if (isPast(currentDay)) {
+                    dayCell.classList.add('past');
+                }
+
+                // Create day info container for mobile
+                const dayInfo = document.createElement('div');
+                dayInfo.className = 'day-info';
+
+                const dayName = document.createElement('div');
+                dayName.className = 'day-name';
+                const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                dayName.textContent = dayNames[i];
+
+                const dayNumber = document.createElement('div');
+                dayNumber.className = 'day-number';
+                dayNumber.textContent = currentDay.getDate();
+
+                dayInfo.appendChild(dayName);
+                dayInfo.appendChild(dayNumber);
+
+                const appointmentsContainer = document.createElement('div');
+                appointmentsContainer.className = 'appointments';
+
+                const dateStr = formatDate(currentDay);
+                if (appointments[dateStr]) {
+                    appointments[dateStr].forEach(appointment => {
+                        const appointmentEl = document.createElement('div');
+                        appointmentEl.className = 'appointment';
+                        appointmentEl.textContent = appointment;
+                        appointmentEl.onclick = (e) => {
+                            e.stopPropagation();
+                            if (!isPast(currentDay)) {
+                                if (confirm('Delete this appointment?')) {
+                                    const index = appointments[dateStr].indexOf(appointment);
+                                    appointments[dateStr].splice(index, 1);
+                                    if (appointments[dateStr].length === 0) {
+                                        delete appointments[dateStr];
+                                    }
+                                    renderCalendar();
+                                }
+                            }
+                        };
+                        appointmentsContainer.appendChild(appointmentEl);
+                    });
+                }
+
+                if (!isPast(currentDay)) {
+                    const addButton = document.createElement('button');
+                    addButton.className = 'add-appointment';
+                    addButton.textContent = '+';
+                    addButton.onclick = (e) => {
+                        e.stopPropagation();
+                        openModal(currentDay);
+                    };
+                    appointmentsContainer.appendChild(addButton);
+                }
+
+                dayCell.appendChild(dayInfo);
+                dayCell.appendChild(appointmentsContainer);
+                daysGrid.appendChild(dayCell);
+            }
+        }
+
+        function previousWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+            renderCalendar();
+        }
+
+        function nextWeek() {
+            currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+            renderCalendar();
+        }
+
+        function goToToday() {
+            currentWeekStart = new Date();
+            renderCalendar();
+        }
+
+        function openModal(date) {
+            selectedDay = date;
+            document.getElementById('appointmentModal').classList.add('show');
+            document.getElementById('appointmentInput').value = '';
+            document.getElementById('appointmentInput').focus();
+        }
+
+        function closeModal() {
+            document.getElementById('appointmentModal').classList.remove('show');
+            selectedDay = null;
+        }
+
+        function saveAppointment() {
+            const input = document.getElementById('appointmentInput');
+            const appointment = input.value.trim();
+            
+            if (appointment && selectedDay) {
+                const dateStr = formatDate(selectedDay);
+                if (!appointments[dateStr]) {
+                    appointments[dateStr] = [];
+                }
+                appointments[dateStr].push(appointment);
+                renderCalendar();
+                closeModal();
+            }
+        }
+
+        // Event listeners
+        document.getElementById('appointmentInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                saveAppointment();
+            } else if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        document.getElementById('appointmentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialize calendar
+        renderCalendar();
+    </script>
+</body>
+</html>
