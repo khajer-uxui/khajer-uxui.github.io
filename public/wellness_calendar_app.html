@@ -265,9 +265,12 @@
         }
 
         .btn:hover {
-            background-color: var(--surface);
+            background-color: var(--primary-tint);
+
+            /* background-color: var(--surface); */
             border-color: var(--border-hover);
             transform: translateY(-1px);
+        
         }
 
         .btn-primary {
@@ -836,6 +839,7 @@
                             <h1 class="calendar-title">Daily Schedule</h1>
                             <div class="Dcalendar-date" id="current-date"></div>
                             <div class="calendar-nav">
+                                <button class="btn" onclick="goToTodayDay()">Today</button>
                                 <button class="btn" onclick="navigateDate(-1)">
                                     <svg class="icon" viewBox="0 0 24 24">
                                         <polyline points="15,18 9,12 15,6"/>
@@ -861,6 +865,8 @@
                     <div class="calendar-container">
                         <h1 class="calendar-title" id="calendarTitle">July 2025</h1>
                         <div class="calendar-nav">
+                            <button class="btn" onclick="goToTodayMonth()">Today</button>
+
                             <button class="btn" onclick="previousMonth()">
                                 <svg class="icon" viewBox="0 0 24 24">
                                     <polyline points="15,18 9,12 15,6"/>
@@ -985,6 +991,10 @@
                 <div class="form-group">
                     <label class="form-label">Date</label>
                     <input type="date" class="form-input" id="appointmentDate" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Start Time</label>
+                    <input type="time" class="form-input" id="startTime" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Duration (minutes)</label>
@@ -1423,34 +1433,25 @@
             showModal('patientSearchModal');
         }
 
-        // function showAddAppointmentModal(date = null) {
-        //     if (date) {
-        //         document.getElementById('appointmentDate').value = date.toISOString().split('T')[0];
-        //     }
-        //     populatePatientSelect();
-        //     showModal('addAppointmentModal');
-        // }
-
-        function showAddAppointmentModal(index = null, slot = null) {
-            if (index && slot) {
-                const dateField = document.getElementById('appointmentDate');
-                const timeField = document.getElementById('appointmentTime'); // or whatever your input ID is
-
-                // Assuming index is a Date object or a date string
-                const date = new Date(index);
-                dateField.value = date.toISOString().split('T')[0]; // formats as YYYY-MM-DD
-
-                // Slot might be a string like "09:00" or "14:30"
-                if (timeField && slot) {
-                timeField.value = slot;
-                }
-
-                console.log("Appointment modal opened for date:", dateField.value, "and time:", slot);
+        function showAddAppointmentModal(date = null, slot = null) {
+            if (date) {
+                // date can be a Date object or a string
+                const dateObj = typeof date === 'string' ? new Date(date) : date;
+                document.getElementById('appointmentDate').value = dateObj.toISOString().split('T')[0];
+            } else {
+                // fallback to currentDate
+                document.getElementById('appointmentDate').value = currentDate.toISOString().split('T')[0];
             }
-
+        
+            if (slot && slot.time24) {
+                document.getElementById('startTime').value = slot.time24;
+            } else {
+                document.getElementById('startTime').value = '';
+            }
+        
             populatePatientSelect();
             showModal('addAppointmentModal');
-            }
+        }
 
         function populatePatientSelect() {
             const select = document.getElementById('appointmentPatient');
@@ -1709,7 +1710,7 @@
                     if (isBooked) {
                         timeContent.addEventListener('dblclick', () => openEditModal(index, slot, Dappointment));
                     } else {
-                        timeContent.addEventListener('dblclick', () => showAddAppointmentModal(index, slot));
+                        timeContent.addEventListener('dblclick', () => showAddAppointmentModal(currentDate, slot));
                     }
                 }
                 
@@ -1885,12 +1886,16 @@
             }
         }
 
-        // Close modal when clicking outside
-        // document.getElementById('booking-modal').addEventListener('click', (e) => {
-        //     if (e.target.id === 'booking-modal') {
-        //         closeModal();
-        //     }
-        // });
+        function goToTodayDay() {
+            currentDate = new Date(); 
+            updateDateDisplay(); // Add this line
+            DrenderCalendar();
+        }
+
+        function goToTodayMonth() {
+            currentDate = new Date(); // or your variable for the Month calendar's current date
+            generateCalendar(); 
+        }
 
         // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
