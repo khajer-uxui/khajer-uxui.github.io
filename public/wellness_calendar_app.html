@@ -50,6 +50,10 @@
             --warning: #f59e0b;
             --error: #ef4444;
             --shadow: rgba(0, 0, 0, 0.1);
+
+            --provider-color-1: #6366f1; /* Dr. Wellness */
+            --provider-color-2: #10b981; /* Dr. Smith */
+            --provider-color-3: #f59e0b; /* Therapist Johnson */
         }
 
         [data-theme="dark"] {
@@ -66,6 +70,11 @@
             --warning: #fbbf24;
             --error: #f87171;
             --shadow: rgba(0, 0, 0, 0.3);
+
+            --provider-color-1: #6366f1; /* Dr. Wellness */
+            --provider-color-2: #10b981; /* Dr. Smith */
+            --provider-color-3: #f59e0b; /* Therapist Johnson */
+
         }
 
         * {
@@ -1107,12 +1116,72 @@
             }
         ];
 
+        // let appointments = [
+        //     {
+        //         id: 1,
+        //         date: '2025-07-23',
+        //         startTime: '09:00',
+        //         duration: 60,
+        //         patientId: 1,
+        //         provider: 'Dr. Wellness',
+        //         serviceType: 'Massage Therapy',
+        //         status: 'Scheduled',
+        //         notes: ''
+        //     },
+        //     {
+        //         id: 2,
+        //         date: '2025-07-24',
+        //         startTime: '14:30',
+        //         duration: 45,
+        //         patientId: 2,
+        //         provider: 'Therapist Johnson',
+        //         serviceType: 'Physical Therapy',
+        //         status: 'Scheduled',
+        //         notes: 'Follow-up session'
+        //     },
+        //     {
+        //         id: 3,
+        //         date: '2025-07-25',
+        //         startTime: '11:00',
+        //         duration: 60,
+        //         patientId: 3,
+        //         provider: 'Dr. Smith',
+        //         serviceType: 'Consultation',
+        //         status: 'Available',
+        //         notes: 'Open slot'
+        //     }
+        // ];
+
+        // providers
+        // Example provider structure
+        const providers = [
+            { id: 1, name: "Dr. Wellness" },
+            { id: 2, name: "Dr. Smith" },
+            { id: 3, name: "Therapist Johnson" }
+        ];
+
+        let selectedPatient = null;
+        let currentView = 'calendar';
+        let calendarView = "D";
+
+
+        // Set up dynamic dates for sample appointments
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(today.getDate() + 1);
+        const dayAfterTomorrow = new Date();
+        dayAfterTomorrow.setDate(today.getDate() + 2);
+        
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+        
         let appointments = [
             {
                 id: 1,
-                date: '2025-07-23',
+                date: formatDate(today),
                 startTime: '09:00',
-                duration: 60,
+                duration: 15,
                 patientId: 1,
                 provider: 'Dr. Wellness',
                 serviceType: 'Massage Therapy',
@@ -1121,7 +1190,7 @@
             },
             {
                 id: 2,
-                date: '2025-07-24',
+                date: formatDate(tomorrow),
                 startTime: '14:30',
                 duration: 45,
                 patientId: 2,
@@ -1132,10 +1201,10 @@
             },
             {
                 id: 3,
-                date: '2025-07-25',
+                date: formatDate(dayAfterTomorrow),
                 startTime: '11:00',
                 duration: 60,
-                patientId: null,
+                patientId: 3,
                 provider: 'Dr. Smith',
                 serviceType: 'Consultation',
                 status: 'Available',
@@ -1143,9 +1212,10 @@
             }
         ];
 
-        let selectedPatient = null;
-        let currentView = 'calendar';
-        let calendarView = "D";
+        function getProviderId(providerName) {
+            const provider = providers.find(p => p.name === providerName);
+            return provider ? provider.id : 1; // fallback to 1 if not found
+        }
 
         function toggleTheme() {
             const root = document.documentElement;
@@ -1162,7 +1232,13 @@
             closeDropdown();
             }
 
-        // User dropdown management
+        // Get the CSS Variable in JavaScript
+        function getProviderColor(providerName) {
+            const id = getProviderId(providerName);
+            return getComputedStyle(document.documentElement).getPropertyValue(`--provider-color-${id}`) || '#6366f1';
+        }
+
+            // User dropdown management
         function toggleUserDropdown() {
             const dropdown = document.getElementById('userDropdown');
             dropdown.classList.toggle('show');
@@ -1339,6 +1415,8 @@
                     const aptDiv = document.createElement('div');
                     aptDiv.className = 'appointment';
                     if (!apt.patientId) aptDiv.classList.add('unassigned');
+
+                    aptDiv.style.background = getProviderColor(apt.provider);
                     
                     aptDiv.textContent = patient 
                         ? `${apt.startTime} ${patient.firstName} ${patient.lastName}`
@@ -1532,6 +1610,8 @@
         document.getElementById('addAppointmentForm').addEventListener('submit', function(e) {
             e.preventDefault();
         
+            console.log('Duration selected:', document.getElementById('duration').value);
+
             const newAppointment = {
                 id: appointments.length + 1,
                 date: document.getElementById('appointmentDate').value,
@@ -1543,6 +1623,9 @@
                 status: 'Scheduled',
                 notes: document.getElementById('appointmentNotes').value
             };
+
+            console.log('New appointment:', newAppointment);
+
         
             appointments.push(newAppointment);
             closeModal('addAppointmentModal');
@@ -1611,7 +1694,7 @@
         });
 
         // Calendar data storage
-        let Dappointments = {}; // Structure: { 'YYYY-MM-DD': { slotIndex: Dappointment } }
+        // let Dappointments = {}; // Structure: { 'YYYY-MM-DD': { slotIndex: Dappointment } }
         let selectedSlotIndex = null;
 
         // Helper function to format date as YYYY-MM-DD
@@ -1675,6 +1758,21 @@
             return slots;
         }
 
+        function canBookProvider(date, startSlotIndex, duration, provider) {
+            const slotsNeeded = duration / 15;
+            for (let i = 0; i < slotsNeeded; i++) {
+                const slotIndex = startSlotIndex + i;
+                const conflict = appointments.some(apt => {
+                    if (apt.date !== date || apt.provider !== provider) return false;
+                    const aptStart = getSlotIndexFromTime(apt.startTime);
+                    const aptSlots = apt.duration / 15;
+                    // Check if slots overlap
+                    return slotIndex >= aptStart && slotIndex < aptStart + aptSlots;
+                });
+                if (conflict) return false;
+            }
+            return true;
+        }
         function formatTime12Hour(hour, minutes) {
             const period = hour >= 12 ? 'PM' : 'AM';
             const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
@@ -1685,46 +1783,113 @@
             const grid = document.getElementById('DcalendarGrid');
             const slots = generateTimeSlots();
             const dateKey = formatDateKey(currentDate);
-            const dayDappointments = Dappointments[dateKey] || {};
-            
+        
             grid.innerHTML = '';
+        
+            const slotColumns = getOverlapBlocks(appointments, slots, dateKey);
+            
+            const { providers, providerToCol } = getProviderColumnsForDay(appointments, dateKey);
+            const columns = providers.length;
             
             slots.forEach((slot, index) => {
+                const slotApts = appointments.filter(apt => {
+                    if (apt.date !== dateKey) return false;
+                    const aptStart = getSlotIndexFromTime(apt.startTime);
+                    const aptSlots = apt.duration / 15;
+                    return index >= aptStart && index < aptStart + aptSlots;
+                });
+            
+                let appointmentHTML = '';
+                for (let col = 0; col < columns; col++) {
+                    const provider = providers[col];
+                    const apt = slotApts.find(a => a.provider === provider);
+                    if (apt) {
+                        const aptStart = getSlotIndexFromTime(apt.startTime);
+                        const patient = patients.find(p => p.id === apt.patientId);
+                        const patientName = patient ? `${patient.firstName} ${patient.lastName}` : 'Unassigned';
+                        if (index === aptStart) {
+                            appointmentHTML += `<div class="Dappointment booked"
+                                style="
+                                    background:${getProviderColor(apt.provider)};
+                                    color:white;
+                                    position:absolute;
+                                    top:0; left:${(col * 100) / columns}%; width:${100 / columns}%; height:100%;
+                                    box-sizing:border-box;
+                                    z-index:2;
+                                ">
+                                ${apt.serviceType} (${apt.provider})<br>
+                                <span style="font-size:0.9em;color:#f1f5f9;">${patientName}</span>
+                            </div>`;
+                        } else {
+                            appointmentHTML += `<div
+                                style="
+                                    background: none;
+                                    position: absolute;
+                                    top: 0; left: ${(col * 100) / columns}%; width: ${100 / columns}%; height: 100%;
+                                    z-index: 0;
+                                    pointer-events: none;
+                                "></div>`;
+                        }
+                    } else {
+                        // Render truly empty space for this provider/column
+                        appointmentHTML += `<div
+                            style="
+                                background: none;
+                                position: absolute;
+                                top: 0; left: ${(col * 100) / columns}%; width: ${100 / columns}%; height: 100%;
+                                z-index: 0;
+                                pointer-events: none;
+                            "></div>`;                    }
+                }
+                // ...inside DrenderCalendar, after building appointmentHTML for each slot...
+                
+                const isPastSlot = isSlotInPast(index, currentDate);
+                let contentClasses = 'Dtime-content';
+                if (slotApts.length > 0) contentClasses += ' booked';
+                if (isPastSlot) contentClasses += ' past';
+                
                 const slotElement = document.createElement('div');
                 slotElement.className = 'Dtime-slot';
                 
-                const Dappointment = dayDappointments[index];
-                const isBooked = !!Dappointment;
-                const isPastSlot = isSlotInPast(index, currentDate);
+                // Create clickable time label
+                const timeLabel = document.createElement('div');
+                timeLabel.className = 'Dtime-label';
+                timeLabel.style.cursor = 'pointer';
+                timeLabel.style.textDecoration = 'underline';
+                timeLabel.textContent = slot.time12;
+                timeLabel.addEventListener('click', () => showAddAppointmentModal(currentDate, slot));
                 
-                let contentClasses = 'Dtime-content';
-                if (isBooked) contentClasses += ' booked';
-                if (isPastSlot) contentClasses += ' past';
+                // Content area for appointments
+                const contentDiv = document.createElement('div');
+                contentDiv.className = contentClasses;
+                contentDiv.dataset.index = index;
+                contentDiv.style.position = 'relative';
+                contentDiv.innerHTML = appointmentHTML;
                 
-                slotElement.innerHTML = `
-                    <div class="Dtime-label">${slot.time12}</div>
-                    <div class="${contentClasses}" data-index="${index}">
-                        ${isBooked ? `<div class="Dappointment">${Dappointment.title}</div>` : ''}
-                    </div>
-                `;
+                slotElement.appendChild(timeLabel);
+                slotElement.appendChild(contentDiv);
                 
-                // Add double-click event listener for non-past slots
-                if (!isPastSlot) {
-                    const timeContent = slotElement.querySelector('.Dtime-content');
-                    if (isBooked) {
-                        timeContent.addEventListener('dblclick', () => openEditModal(index, slot, Dappointment));
-                    } else {
-                        timeContent.addEventListener('dblclick', () => showAddAppointmentModal(currentDate, slot));
-                    }
-                }
-                
-                grid.appendChild(slotElement);
-            });
-            
-            // Update navigation buttons (no longer needed to disable any)
+                grid.appendChild(slotElement);            });
+            updateDateDisplay();
             updateNavigationButtons();
+        } 
+        
+        function getSlotAppointmentsWithColumns(slotApts) {
+            // Assign each appointment a column index based on provider order
+            // (You can use provider name or id for consistent ordering)
+            const providersInSlot = [...new Set(slotApts.map(apt => apt.provider))];
+            return slotApts.map(apt => ({
+                ...apt,
+                column: providersInSlot.indexOf(apt.provider),
+                totalColumns: providersInSlot.length
+            }));
         }
 
+        // Helper to get slot index from time string (e.g., "09:15")
+        function getSlotIndexFromTime(timeStr) {
+            const [hour, minute] = timeStr.split(':').map(Number);
+            return ((hour - 9) * 4) + Math.floor(minute / 15);
+        }
         function updateNavigationButtons() {
             // Always allow navigation in both directions for viewing
             // No disabled states for navigation buttons
@@ -1825,9 +1990,81 @@
             return true;
         }
 
+        // calculate overlaps for appointments
+        function getOverlapBlocks(appointments, slots, dateKey) {
+            // For each slot, find which appointments are active
+            const slotActiveApts = slots.map((slot, slotIdx) => {
+                return appointments.filter(apt => {
+                    if (apt.date !== dateKey) return false;
+                    const aptStart = getSlotIndexFromTime(apt.startTime);
+                    const aptSlots = apt.duration / 15;
+                    return slotIdx >= aptStart && slotIdx < aptStart + aptSlots;
+                });
+            });
+        
+            // Identify sticky overlap blocks
+            let slotColumns = [];
+            let currentBlockProviders = [];
+            let blockStart = 0;
+        
+            for (let i = 0; i < slotActiveApts.length; i++) {
+                const providers = slotActiveApts[i].map(a => a.provider);
+                // Remove duplicates and sort for consistency
+                const uniqueProviders = Array.from(new Set([...currentBlockProviders, ...providers])).sort();
+        
+                // If there are no appointments, reset the block
+                if (providers.length === 0) {
+                    currentBlockProviders = [];
+                    slotColumns[i] = { columns: 1, providerToCol: {} };
+                    continue;
+                }
+        
+                // If starting a new block
+                if (currentBlockProviders.length === 0) {
+                    currentBlockProviders = uniqueProviders;
+                    blockStart = i;
+                }
+        
+                // Remove providers whose appointments have ended
+                currentBlockProviders = currentBlockProviders.filter(p =>
+                    slotActiveApts.slice(blockStart, i + 1).some(apts => apts.some(a => a.provider === p))
+                );
+        
+                // Add any new providers
+                providers.forEach(p => {
+                    if (!currentBlockProviders.includes(p)) currentBlockProviders.push(p);
+                });
+        
+                // Assign columns
+                const providerToCol = {};
+                currentBlockProviders.forEach((p, idx) => providerToCol[p] = idx);
+        
+                slotColumns[i] = {
+                    columns: currentBlockProviders.length,
+                    providerToCol
+                };
+            }
+        
+            return slotColumns;
+        } 
+        
+        function getProviderColumnsForDay(appointments, dateKey) {
+            // Get all providers with appointments on this day, sorted for consistency
+            const providers = Array.from(
+                new Set(
+                    appointments
+                        .filter(apt => apt.date === dateKey)
+                        .map(apt => apt.provider)
+                )
+            ).sort();
+            const providerToCol = {};
+            providers.forEach((p, idx) => providerToCol[p] = idx);
+            return { providers, providerToCol };
+        }
+        
         function removeDappointment(slotIndex) {
             const dateKey = formatDateKey(currentDate);
-            const dayDappointments = Dappointments[dateKey];
+            // const dayDappointments = Dappointments[dateKey];
             if (!dayDappointments) return false;
             
             const Dappointment = dayDappointments[slotIndex];
@@ -1852,33 +2089,41 @@
         }
 
         // Event listeners
-        document.getElementById('addAppointmentForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            console.log('Form submitted'); // Debug log
+        // document.getElementById('addAppointmentForm').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+        
+        //     const date = document.getElementById('appointmentDate').value;
+        //     const startTime = document.getElementById('startTime').value;
+        //     const duration = parseInt(document.getElementById('duration').value);
+        //     const provider = document.getElementById('appointmentProvider').value;
+        
+        //     const startSlotIndex = getSlotIndexFromTime(startTime);
+        
+        //     if (!canBookProvider(date, startSlotIndex, duration, provider)) {
+        //         alert('This provider is already booked for one or more of the selected time slots.');
+        //         return;
+        //     }
+        
+        //     const newAppointment = {
+        //         id: appointments.length + 1,
+        //         date,
+        //         startTime,
+        //         duration,
+        //         patientId: document.getElementById('appointmentPatient').value ? parseInt(document.getElementById('appointmentPatient').value) : null,
+        //         provider,
+        //         serviceType: document.getElementById('serviceType').value,
+        //         status: 'Scheduled',
+        //         notes: document.getElementById('appointmentNotes').value
+        //     };
+                
+        //     console.log('New appointment:', newAppointment);
             
-            const title = document.getElementById('Dappointment-title').value.trim();
-            const duration = parseInt(document.getElementById('duration').value);
-            
-            console.log('Title:', title, 'Duration:', duration, 'Selected slot:', selectedSlotIndex); // Debug log
-            
-            if (!title) {
-                showError('Please enter an Dappointment title.');
-                return;
-            }
-            
-            if (selectedSlotIndex === null) {
-                showError('No time slot selected.');
-                return;
-            }
-            
-            const success = bookDappointment(title, duration);
-            console.log('Booking success:', success); // Debug log
-            
-            if (success) {
-                closeModal();
-                DrenderCalendar();
-            }
-        });
+        //     appointments.push(newAppointment);
+        //     closeModal('addAppointmentModal');
+        //     this.reset();
+        
+        //     DrenderCalendar();
+        // });
 
         function handleRemove() {
             if (selectedSlotIndex !== null) {
