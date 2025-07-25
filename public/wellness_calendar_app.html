@@ -1354,9 +1354,16 @@
                 
                 // Make day clickable to add appointment
                 dayDiv.onclick = () => {
-                    showAddAppointmentModal(cellDate);
-                };
+                    calendarView = 'D';
+                    document.getElementById('DcalendarView').style.display = 'block';
+                    document.getElementById('McalendarView').style.display = 'none';
                 
+                    // Set the current date to the clicked date, force time to midnight local
+                    currentDate = new Date(cellDate.getFullYear(), cellDate.getMonth(), cellDate.getDate());
+                    updateDateDisplay();
+                    DrenderCalendar();
+                };
+
                 grid.appendChild(dayDiv);
             }
         }
@@ -1524,7 +1531,7 @@
 
         document.getElementById('addAppointmentForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+        
             const newAppointment = {
                 id: appointments.length + 1,
                 date: document.getElementById('appointmentDate').value,
@@ -1536,16 +1543,13 @@
                 status: 'Scheduled',
                 notes: document.getElementById('appointmentNotes').value
             };
-            
+        
             appointments.push(newAppointment);
             closeModal('addAppointmentModal');
             this.reset();
-            
-            if (currentView === 'calendar') {
-                generateCalendar();
-            }
-            
-            alert('Appointment scheduled successfully!');
+        
+            // Always update Day view after adding/editing
+            DrenderCalendar();
         });
 
         // Search functionality
