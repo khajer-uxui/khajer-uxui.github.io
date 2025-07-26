@@ -224,6 +224,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            min-height: 0; /* Important for flex children to shrink */
         }
 
         .taskbar {
@@ -234,6 +235,11 @@
             justify-content: space-between;
            
             align-items: center;
+
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         .taskbar-right {
@@ -293,12 +299,13 @@
             border-color: var(--primary-hover);
         }
 
-        .content-area {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-            background-color: var(--surface-hover);
-        }
+    .content-area {
+        flex: 1 1 0;
+        min-height: 0;
+        overflow-y: auto;
+        background-color: var(--surface-hover);
+        padding: 2rem;
+    }
 
         /* Calendar */
         .Dcalendar-container {
@@ -390,7 +397,7 @@
         }
 
         .Dtime-content.past.booked {
-            background: #94a3b8;
+            /* background: #94a3b8; */
             color: white;
             cursor: default;
         }
@@ -1212,6 +1219,14 @@
             }
         ];
 
+        function formatDateLocal(date) {
+            // Returns YYYY-MM-DD in local time
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
         function getProviderId(providerName) {
             const provider = providers.find(p => p.name === providerName);
             return provider ? provider.id : 1; // fallback to 1 if not found
@@ -1525,7 +1540,8 @@
                 document.getElementById('appointmentDate').value = dateObj.toISOString().split('T')[0];
             } else {
                 // fallback to currentDate
-                document.getElementById('appointmentDate').value = currentDate.toISOString().split('T')[0];
+                // document.getElementById('appointmentDate').value = currentDate.toISOString().split('T')[0];
+                document.getElementById('appointmentDate').value = currentDate.formatDateLocal(date);
             }
         
             if (slot && slot.time24) {
@@ -1612,6 +1628,8 @@
         
             console.log('Duration selected:', document.getElementById('duration').value);
 
+            const editId = this.dataset.editId;
+
             const newAppointment = {
                 id: appointments.length + 1,
                 date: document.getElementById('appointmentDate').value,
@@ -1625,13 +1643,19 @@
             };
 
             console.log('New appointment:', newAppointment);
-
-        
-            appointments.push(newAppointment);
+    
+            if (editId) {
+                // Update existing appointment
+                const idx = appointments.findIndex(a => a.id == editId);
+                if (idx > -1) appointments[idx] = { ...newAppointment, id: parseInt(editId) };
+                delete this.dataset.editId;
+            } else {
+                // Add new appointment
+                newAppointment.id = appointments.length + 1;
+                appointments.push(newAppointment);
+            }
             closeModal('addAppointmentModal');
             this.reset();
-        
-            // Always update Day view after adding/editing
             DrenderCalendar();
         });
 
@@ -1808,6 +1832,7 @@
                         const patient = patients.find(p => p.id === apt.patientId);
                         const patientName = patient ? `${patient.firstName} ${patient.lastName}` : 'Unassigned';
                         if (index === aptStart) {
+                            // First slot: show details
                             appointmentHTML += `<div class="Dappointment booked"
                                 style="
                                     background:${getProviderColor(apt.provider)};
@@ -1821,16 +1846,17 @@
                                 <span style="font-size:0.9em;color:#f1f5f9;">${patientName}</span>
                             </div>`;
                         } else {
+                            // Continuation slots: show colored bar
                             appointmentHTML += `<div
                                 style="
-                                    background: none;
+                                    background:${getProviderColor(apt.provider)};
+                                    opacity:0.5;
                                     position: absolute;
                                     top: 0; left: ${(col * 100) / columns}%; width: ${100 / columns}%; height: 100%;
-                                    z-index: 0;
+                                    z-index: 1;
                                     pointer-events: none;
                                 "></div>`;
-                        }
-                    } else {
+                        }                    } else {
                         // Render truly empty space for this provider/column
                         appointmentHTML += `<div
                             style="
@@ -1841,7 +1867,7 @@
                                 pointer-events: none;
                             "></div>`;                    }
                 }
-                // ...inside DrenderCalendar, after building appointmentHTML for each slot...
+                // after building appointmentHTML for each slot...
                 
                 const isPastSlot = isSlotInPast(index, currentDate);
                 let contentClasses = 'Dtime-content';
@@ -1851,20 +1877,50 @@
                 const slotElement = document.createElement('div');
                 slotElement.className = 'Dtime-slot';
                 
-                // Create clickable time label
+                // Create clickable (or disabled) time label
                 const timeLabel = document.createElement('div');
                 timeLabel.className = 'Dtime-label';
-                timeLabel.style.cursor = 'pointer';
-                timeLabel.style.textDecoration = 'underline';
                 timeLabel.textContent = slot.time12;
-                timeLabel.addEventListener('click', () => showAddAppointmentModal(currentDate, slot));
                 
+                if (isPastSlot) {
+                    timeLabel.style.cursor = 'not-allowed';
+                    timeLabel.style.textDecoration = 'none';
+                    timeLabel.style.opacity = '0.5';
+                    // Do NOT add a click event for past slots
+                } else {
+                    timeLabel.style.cursor = 'pointer';
+                    timeLabel.style.textDecoration = 'underline';
+                    timeLabel.addEventListener('click', () => showAddAppointmentModal(currentDate, slot));
+                }                
                 // Content area for appointments
                 const contentDiv = document.createElement('div');
                 contentDiv.className = contentClasses;
                 contentDiv.dataset.index = index;
                 contentDiv.style.position = 'relative';
                 contentDiv.innerHTML = appointmentHTML;
+
+                // allow editing
+                const appointmentDivs = contentDiv.querySelectorAll('.Dappointment.booked');
+                appointmentDivs.forEach(div => {
+                    // Find the provider/column for this div
+                    const col = parseInt(div.style.left) / (100 / columns);
+                    const provider = providers[col];
+                    // Find the appointment for this slot and provider
+                    const apt = slotApts.find(a => a.provider === provider && getSlotIndexFromTime(a.startTime) === index);
+                    if (apt) {
+                        const aptStart = getSlotIndexFromTime(apt.startTime);
+                        const isPastApt = isSlotInPast(aptStart, currentDate);
+                        if (!isPastApt) {
+                            div.style.cursor = 'pointer';
+                            div.addEventListener('dblclick', (e) => {
+                                e.stopPropagation();
+                                showEditAppointmentModal(apt);
+                            });
+                        } else {
+                            div.style.cursor = 'not-allowed';
+                        }
+                    }
+                });
                 
                 slotElement.appendChild(timeLabel);
                 slotElement.appendChild(contentDiv);
@@ -1873,7 +1929,20 @@
             updateDateDisplay();
             updateNavigationButtons();
         } 
-        
+
+        function showEditAppointmentModal(apt) {
+            populatePatientSelect(); // <-- Make sure options are present first
+            document.getElementById('appointmentDate').value = apt.date;
+            document.getElementById('startTime').value = apt.startTime;
+            document.getElementById('duration').value = apt.duration;
+            document.getElementById('appointmentPatient').value = apt.patientId || '';
+            document.getElementById('appointmentProvider').value = apt.provider;
+            document.getElementById('serviceType').value = apt.serviceType;
+            document.getElementById('appointmentNotes').value = apt.notes || '';
+            document.getElementById('addAppointmentForm').dataset.editId = apt.id;
+            showModal('addAppointmentModal');
+        }        
+
         function getSlotAppointmentsWithColumns(slotApts) {
             // Assign each appointment a column index based on provider order
             // (You can use provider name or id for consistent ordering)
@@ -2087,43 +2156,6 @@
             const minutes = (slotIndex % 4) * 15;
             return formatTime12Hour(hour, minutes);
         }
-
-        // Event listeners
-        // document.getElementById('addAppointmentForm').addEventListener('submit', function(e) {
-        //     e.preventDefault();
-        
-        //     const date = document.getElementById('appointmentDate').value;
-        //     const startTime = document.getElementById('startTime').value;
-        //     const duration = parseInt(document.getElementById('duration').value);
-        //     const provider = document.getElementById('appointmentProvider').value;
-        
-        //     const startSlotIndex = getSlotIndexFromTime(startTime);
-        
-        //     if (!canBookProvider(date, startSlotIndex, duration, provider)) {
-        //         alert('This provider is already booked for one or more of the selected time slots.');
-        //         return;
-        //     }
-        
-        //     const newAppointment = {
-        //         id: appointments.length + 1,
-        //         date,
-        //         startTime,
-        //         duration,
-        //         patientId: document.getElementById('appointmentPatient').value ? parseInt(document.getElementById('appointmentPatient').value) : null,
-        //         provider,
-        //         serviceType: document.getElementById('serviceType').value,
-        //         status: 'Scheduled',
-        //         notes: document.getElementById('appointmentNotes').value
-        //     };
-                
-        //     console.log('New appointment:', newAppointment);
-            
-        //     appointments.push(newAppointment);
-        //     closeModal('addAppointmentModal');
-        //     this.reset();
-        
-        //     DrenderCalendar();
-        // });
 
         function handleRemove() {
             if (selectedSlotIndex !== null) {
