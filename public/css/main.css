@@ -623,16 +623,18 @@ summary.head3 {
 
 summary:hover {
     filter: brightness(var(--hover-brightness));
-    ))
+    
     /* background-color: #f08080; */
 }
 
  
 
 /* sections */
-#contact {
-    background-color: var(--color-bg-secondary);
+#case {
+    /* background-color: var(--color-bg-secondary); */
+    background-color: var(--color-shadow);
 }
+
 
 /* Custom styles */
 
