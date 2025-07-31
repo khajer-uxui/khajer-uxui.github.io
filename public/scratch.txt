@@ -7,3 +7,65 @@
   "#6C98A9",
   "#628997"
 ]
+
+
+.dark {
+    --color: #4db8ff;
+    --color-accent: #66c2ff;
+    --color-bg: #1a1a1a;
+    --color-bg-secondary: #2d2d2d;
+    --color-secondary: var(--color);
+    --color-secondary-accent: #1a1a1a;
+    --color-shadow: #0f0f0f;
+    --color-text: #e6e6e6;
+    --color-text-secondary: #999;
+    
+    --color-h1: #3a5f70;
+    --color-h2: #2a4a58;
+    --color-h3: #1f3740;
+}
+
+[data-theme="dark"] {
+    /* same variables */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* same variables */
+    }
+}
+
+With the @media (prefers-color-scheme: dark) method alone, users can't override it within your site - it only responds to their system/browser setting.
+But you can combine both approaches! This gives users the best of both worlds:
+
+/* Default light theme in :root */
+:root {
+    /* your current light theme variables */
+}
+
+/* Auto dark mode based on system preference */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color: #4db8ff;
+        --color-accent: #66c2ff;
+        /* etc... */
+    }
+}
+
+/* Manual override classes */
+.light-theme {
+    /* force light theme variables */
+    --color: #136fb0;
+    --color-accent: #118bee;
+    /* etc... */
+}
+
+.dark-theme {
+    /* force dark theme variables */
+    --color: #4db8ff;
+    --color-accent: #66c2ff;
+    /* etc... */
+}
+
+Then you can add a theme toggle button that applies .light-theme or .dark-theme classes to override the system preference. The CSS cascade means the class-based rules will take precedence over the media query.
+This way users get automatic theming by default, but can still manually override if they want something different than their system setting.
