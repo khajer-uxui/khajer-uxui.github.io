@@ -821,6 +821,7 @@ header div p a:hover, a:focus {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    padding-top: 1rem;
 }
 
 .triptych > div {
