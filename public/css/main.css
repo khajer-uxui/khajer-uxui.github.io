@@ -44,6 +44,25 @@ html {
         
 }
 
+/* Auto dark mode based on system preference */
+/* @media (prefers-color-scheme: dark) {
+    :root {
+    --color: #4db8ff;
+    --color-accent: #66c2ff;
+    --color-bg: #1a1a1a;
+    --color-bg-secondary: #2d2d2d;
+    --color-secondary: var(--color);
+    --color-secondary-accent: #1a1a1a;
+    --color-shadow: #0f0f0f;
+    --color-text: #e6e6e6;
+    --color-text-secondary: #999;
+    
+    --color-h1: #3a5f70;
+    --color-h2: #2a4a58;
+    --color-h3: #1f3740;
+    }
+} */
+
 @media screen and (min-width: 900px) {
     html {
         font-size: 18px;
@@ -849,6 +868,7 @@ header div p a:hover, a:focus {
 .decorRight {
     align-self: right;
     padding-left: 2%;
+    padding-top: 1rem;
 }
 
 .illoContainer {
