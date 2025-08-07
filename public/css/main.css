@@ -885,3 +885,17 @@ header div p a:hover, a:focus {
 .icon-link {
     padding-left: 18px;
 }
+
+.headShot{
+    border-radius: 50%;
+    border: var(--color-h1) solid 4px;
+    /* box-shadow: var(--color-h1) 8px 8px 8px;  */
+}
+
+.introLeft {
+    width: 70%
+}
+
+.introBlock {
+    gap: 1rem;
+}
