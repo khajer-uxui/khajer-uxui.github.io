@@ -657,6 +657,30 @@ summary:hover {
 }
 
  
+summary.head2 p {
+    display: inline;
+    margin: 0;
+    float: right;
+}
+
+summary.head2::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+summary.head3 p {
+    display: inline;
+    margin: 0;
+    float: right;
+}
+
+summary.head3::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 
 /* sections */
 #case {

@@ -61,9 +61,9 @@
                 <div class="flexImage introBlock">
                     <div class="introLeft">
                     <p><em>I design things people actually want to use.</em></p>
-                    <p>Hi, I&CloseCurlyQuote;m Katherine—a UX/UI designer who transforms complexity into clarity. I design with empathy, precision, and a deep understanding of human behavior, crafting experiences that guide, engage, and empower. Based in Toronto, I&CloseCurlyQuote;m passionate about solving the right problems through meaningful collaboration.</p>
+                    <p>Hi, I&CloseCurlyQuote;m Katherine, a UX/UI designer who transforms complexity into clarity. I design with empathy, precision, and a deep understanding of human behavior, crafting experiences that guide, engage, and empower. Based in Toronto, I&CloseCurlyQuote;m passionate about solving the right problems through meaningful collaboration.</p>
                     <p>
-                        These case studies highlight my UX research and design process. The Beaches Wellness Centre project was developed independently as portfolio work. Professional work is documented without original files to honour confidentiality and security agreements with former employers.
+                        These case studies highlight my UX research and design process. The Beaches Wellness Centre project was developed independently as portfolio work. Professional work varies in documentation &mdash; some projects include original artifacts released by former employers, while others are documented without files to honor confidentiality and security agreements.
                     </p>
 
                     <p><strong>Notable clients:</strong> RBC Bank, TD Bank, Bank of Nova Scotia, Canada Life Insurance, Canadian Tire Financial Services</p>
@@ -116,86 +116,176 @@
             <section>
                 <details open>
                     <summary class="head1">
-                        <h1>Previous Work</h1>
+                        <h1>Work Case Studies</h1>
                     </summary>
 
                     <details>
                         <summary class="head2">
                             <h2>Sonar Software</h2><p><em>2022&ndash;2025</em></p>
                         </summary>
-                        <h3>FCC Compliance Solution</h3>
+
+                        <details>
+                            <summary class="head3">
+                            <h3>Account Overview Redesign</h3><p><em>2024/2025</em></p>
+                            </summary>
+                            
+                        <div class="flexImage">
+                            <div class="introLeft">
+                                <h4>Project Summary</h4>
+                                <p>Redesigned a complex, multi-screen account overview page to address user frustration with excessive scrolling and poor performance. Created a customizable card system that improved both user experience and technical performance while satisfying competing stakeholder needs.</p>
+                                <h4>The Challenge</h4>
+                                <p>The Account Overview page was a critical but problematic interface:</p>
+                                <ul>
+                                    <li><strong>User frustration:</strong> Frequently-needed data was buried at the bottom of a multi-screen page requiring constant scrolling</li>
+                                    <li><strong>Performance issues:</strong> Page loaded slowly because it queried the database for every card simultaneously &mdash; essentially loading an entire account's worth of data at once.</li>
+                                    <li><strong>Stakeholder tension:</strong> Management wanted a redesign, developers flagged technical constraints, users had varying data priorities</li>
+                                </ul>
+                            </div>
+                            <img src="img/sonar/default.png" alt="Account Overview default" aria-hidden="true" class="decorRight" width="30%" height="auto">
+                        </div>
+
+                        <h4>My Role & Approach</h4>
+                        <p>I took ownership of this project after recognizing that multiple stakeholders were describing different aspects of the same core problem. Rather than treat these as separate issues, I listened to all perspectives and looked for a unified solution.</p>
+
+                        <details>
+                        <summary class="head4"><h4>Research & Synthesis</h4></summary>
                         
-                         <p><em>2022/2023, updates through 2025</em></p>
-
-                        <h4>Project summary</h4>
-                        <p>Designed accessible ISP "nutrition label" generator for regulatory compliance. I created an SVG-based solution that generated leads for 2+ years while helping clients meet federal requirements. This solution was the only competitor offering machine-readable format from launch (a feature recently mandated by the FCC).</p>
-
-                        <h4>The challenge</h4> 
-                        <p>The FCC mandated regulatory &ldquo;nutrition label&rdquo; requirements for ISP data service offerings. While initially considered out of scope, Sonar faced increasing client pressure for a compliance solution with tight regulatory deadlines.</p>
-
-                        <h4>My role & approach</h4>
-                        
-                        <p>As the sole designer on this project, I:</p>
-    
-
                         <ul>
-                            <li>Researched FCC requirements and technical constraints</li>
-                            <li>Proposed a dual-purpose solution for client goodwill and lead generation</li>
-                            <li>Designed accessible, scalable label formats using SVG with real text</li>
-                            <li>Created both client and prospect-facing workflows</li>
+                            <li><strong>User feedback analysis:</strong> Identified that different users needed different data priorities, but all suffered from the "scroll to find" problem </li>
+                            <li><strong>Technical investigation:</strong> Understood that loading all cards simultaneously created avoidable slowness</li>
+                            <li><strong>Stakeholder mapping:</strong> Recognized that a customizable solution could address performance, usability, and management goals simultaneously</li>
+                        </ul>
+                        </details>
+
+                        <details>
+                        
+                            <summary class="head4"><h4>The Solution</h4></summary>
+                        <p>Designed a customizable card system where users could:</p>
+                        <ul>
+                            <li>Select which data cards to display on their dashboard</li>
+                            <li>Arrange cards in their preferred order </li>
+                            <li>Save these preferences as their default view </li>
+                            <li>Return to the system default with one-button reset</li>
                         </ul>
 
-                        <details>
-                            <summary class="head4"><h4>Key Design Decisions</h4></summary>
-
-                            <ul>
-                                <li><strong>SVG format over PDF/JPEG:</strong> Ensured scalability for print, web accessibility, and machine readability</li>
-                                <li><strong>Hybrid solution:</strong> CSV data export and a web tool. Full integration wasn&rsquo;t feasible before the deadline</li>
-                                <li><strong>Live preview:</strong> HTML/CSS label preview so users could validate before generating</li>
-                                <li><strong>Future-proofed accessibility:</strong> Machine-readable from launch, avoiding later compliance updates</li>
-                            </ul>
+                        <div style="text-align:center">
+                            <img src="img/sonar/delete-move-under-5-mb.gif" alt="Adjust cards" aria-hidden="true" width="80%" height="auto">
+                        </div>
                         </details>
 
                         <details>
-                            <summary class="head4"><h4>Business Impact</h4></summary>
-                            <ul>
-                                <li>Successfully served existing clients despite resource constraints</li>
-                                <li>Generated qualified leads for Sales team (still actively used 2+ years later)</li>
+                        <summary class="head4"><h4>Key Design Decisions</h4></summary>
+
+                        <div class="flexImage">
+                            <div class="introLeft">
                                 <ul>
-                                    <li><strong>Measured Impact:</strong> The solution attracted 210 companies in its first year, with 59% representing new business opportunities (92 marketing qualified leads + 32 new prospects). This validated the strategic decision to create a client-goodwill tool that also functioned as a lead generator, successfully balancing support for existing clients with new business development.</li>
+                                    <li><strong>Progressive loading:</strong> Only selected cards query the database, improving performance </li>
+                                    <li><strong>User control:</strong> Customization without losing the ability to return to standard view </li>
+                                    <li><strong>Minimal learning curve:</strong> Preserved existing functionality while adding flexibility</li>
                                 </ul>
-                                <li>Only competitor offering SVG output format</li>
-                                <li>Sonar avoided compliance issues when the recently FCC updated machine-readability requirements</li>
-                            </ul>
+                            </div>
+                            <img src="img/sonar/detailsList.png" alt="Details list" aria-hidden="true" width="25%" height="auto" class="decorRight">
+                        </div>
+
+                        <div style="text-align:center">
+                            <img src="img/sonar/controls.png" alt="Card controls" aria-hidden="true" width="100%" height="auto"  style="border-radius: 9px; border: 4px solid #000;">
+                        </div>
                         </details>
 
                         <details>
-                            <summary class="head4"><h4>Reflections</h4></summary>
+                        <summary class="head4"><h4>Business Impact</h4></summary>
+                        <ul>
+                            <li>Reduced page load times by implementing progressive loading, and by rewriting the loading method for greater efficiency &mdash; improving performance even when all cards were displayed</li>
+                            <li>Eliminated user complaints about scrolling to find critical information. The success was so clear that users are now requesting this feature on other pages throughout the app.</li>
+                            <li>Satisfied management's redesign goals while working within technical constraints</li>
+                            <li>Successfully implemented and documented in company help materials</li>
+                        </ul>
+                        </details>
+
+                        <details>
+                        <summary class="head4"><h4>Reflections</h4></summary>
+                        <p>This project reinforced the value of listening to multiple stakeholders and looking for systemic solutions rather than addressing symptoms. By treating performance issues and user experience problems as interconnected, I found a solution that improved both while giving users control over their workflow.</p>
+                        <p>The only thing I would do differently is design the new controls to accommodate different screen sizes more gracefully. While the Product directive was desktop-only at the time, a shift toward responsive design happened shortly after implementation. I had actually been advocating for this dynamic approach throughout the app, but chose a conservative solution to ensure smooth adoption during the organizational transition.</p>
+                        </details>
+                        </details>
+
+                        <details>
+                            <summary class="head3">
+                            <h3>FCC Compliance Solution</h3><p><em>2022/2023</em></p>
+                            </summary>
                             
-                            <p>This project taught me the value of advocating for user needs even when projects get deprioritized. By continuing development during downtime and hackathons, we delivered a solution that balanced technical constraints with genuine user value.</p></p>
+                            <p><em>updates through 2025</em></p>
 
-                            <p>Looking back, I now realize the solution could have been even simpler &mdash; the SVGs could be generated entirely with client-side JavaScript, eliminating the need for back-end development and server infrastructure. This would have reduced both development time and ongoing maintenance costs while making the tool faster to deploy.</p>
-                        </details>
+                            <h4>Project summary</h4>
+                            <p>Designed accessible ISP "nutrition label" generator for regulatory compliance. I created an SVG-based solution that generated leads for 2+ years while helping clients meet federal requirements. This solution was the only competitor offering machine-readable format from launch (a feature recently mandated by the FCC).</p>
 
-                        <details>
-                            <summary class="head4"><h4>Current public-facing solution</h4></summary>
+                            <h4>The challenge</h4> 
+                            <p>The FCC mandated regulatory &ldquo;nutrition label&rdquo; requirements for ISP data service offerings. While initially considered out of scope, Sonar faced increasing client pressure for a compliance solution with tight regulatory deadlines.</p>
+
+                            <h4>My role & approach</h4>
+                            
+                            <p>As the sole designer on this project, I:</p>
+        
+
                             <ul>
-                                <li><a href="https://sonar.software/free-broadband-label-maker" target="_blank">Label maker landing page <span class="fas fa-external-link-alt" title="external link"></span></a> for non-clients</li>
-                                <li>The <a href="https://docs.sonar.expert/accounts/using-sonar-s-fcc-broadband-label-generation-tool" target="_blank">instructions <span class="fas fa-external-link-alt" title="external link"></span></a> for both clients and non-clients. Non-clients can download a copy of the CSV report form here.</li>
-                                <li>The <a href="https://fcclabels.sonar.software/" target="_blank">label generation page <span class="fas fa-external-link-alt" title="external link"></span></a></li>
+                                <li>Researched FCC requirements and technical constraints</li>
+                                <li>Proposed a dual-purpose solution for client goodwill and lead generation</li>
+                                <li>Designed accessible, scalable label formats using SVG with real text</li>
+                                <li>Created both client and prospect-facing workflows</li>
                             </ul>
+
+                            <details>
+                                <summary class="head4"><h4>Key Design Decisions</h4></summary>
+
+                                <ul>
+                                    <li><strong>SVG format over PDF/JPEG:</strong> Ensured scalability for print, web accessibility, and machine readability</li>
+                                    <li><strong>Hybrid solution:</strong> CSV data export and a web tool. Full integration wasn&rsquo;t feasible before the deadline</li>
+                                    <li><strong>Live preview:</strong> HTML/CSS label preview so users could validate before generating</li>
+                                    <li><strong>Future-proofed accessibility:</strong> Machine-readable from launch, avoiding later compliance updates</li>
+                                </ul>
+                            </details>
+
+                            <details>
+                                <summary class="head4"><h4>Business Impact</h4></summary>
+                                <ul>
+                                    <li>Successfully served existing clients despite resource constraints</li>
+                                    <li>Generated qualified leads for Sales team (still actively used 2+ years later)</li>
+                                    <ul>
+                                        <li><strong>Measured Impact:</strong> The solution attracted 210 companies in its first year, with 59% representing new business opportunities (92 marketing qualified leads + 32 new prospects). This validated the strategic decision to create a client-goodwill tool that also functioned as a lead generator, successfully balancing support for existing clients with new business development.</li>
+                                    </ul>
+                                    <li>Only competitor offering SVG output format</li>
+                                    <li>Sonar avoided compliance issues when the recently FCC updated machine-readability requirements</li>
+                                </ul>
+                            </details>
+
+                            <details>
+                                <summary class="head4"><h4>Reflections</h4></summary>
+                                
+                                <p>This project taught me the value of advocating for user needs even when projects get deprioritized. By continuing development during downtime and hackathons, we delivered a solution that balanced technical constraints with genuine user value.</p></p>
+
+                                <p>Looking back, I now realize the solution could have been even simpler &mdash; the SVGs could be generated entirely with client-side JavaScript, eliminating the need for back-end development and server infrastructure. This would have reduced both development time and ongoing maintenance costs while making the tool faster to deploy.</p>
+                            </details>
+
+                            <details>
+                                <summary class="head4"><h4>Current public-facing solution</h4></summary>
+                                <ul>
+                                    <li><a href="https://sonar.software/free-broadband-label-maker" target="_blank">Label maker landing page <span class="fas fa-external-link-alt" title="external link"></span></a> for non-clients</li>
+                                    <li>The <a href="https://docs.sonar.expert/accounts/using-sonar-s-fcc-broadband-label-generation-tool" target="_blank">instructions <span class="fas fa-external-link-alt" title="external link"></span></a> for both clients and non-clients. Non-clients can download a copy of the CSV report form here.</li>
+                                    <li>The <a href="https://fcclabels.sonar.software/" target="_blank">label generation page <span class="fas fa-external-link-alt" title="external link"></span></a></li>
+                                </ul>
+                            </details>
                         </details>
                         
                     </details>
 
                     <details>
                         <summary class="head2">
-                            <h2>Symcor</h2>
+                                <h2>Symcor</h2>
+                                <p><em>2019/2022</em></p>
                         </summary>
-
                         <p>I began at Symcor as a Senior Business Systems Analyst, incorporating UI design into my requirements work. To formalize my design skills, I completed a year-long User Experience Design Certificate at University of Toronto while working full-time. This led to a full Senior UI Designer role in 2018, combining analytical and design expertise.</p>
 
-                        <details>
+                        <!-- <details>
                             <summary class="head3"><h3>Cheque Ordering Application</h3><p><em>2020-2021</em></p></summary>
 
                             <h4>Role</h4>
@@ -234,10 +324,10 @@
                                 <summary class="head4"><h4>Reflections</h4></summary>
                                 <p>This project taught me to challenge technical assumptions and prove concepts through prototyping. The SVG research and layering innovation became foundational knowledge for future projects. Most importantly, I learned to balance user experience goals with business requirements and technical constraints across multiple development teams.</p>
                             </details>
-                        </details>
+                        </details> -->
 
                         <details>
-                            <summary class="head4"><h3>Client project process research</h3><p><em>2021</em></p></summary>
+                            <summary class="head3"><h3>Client project process research</h3><p><em>2021</em></p></summary>
 
                             <h4>Project summary</h4>
                             <p>Conducted structured interviews with Tier 1 bank clients to identify project delivery pain points. This research challenged internal assumptions about client conservatism and drove organizational shift toward data-driven process improvements.</p>
@@ -291,12 +381,12 @@
                         </details>
                     </details>
 
-                    <details>
+                    <!-- <details>
                         <summary class="head2">
                             <h2>And before</h2>
                         </summary>
                         <p>From teaching, to training, to business systems analysis, I&rsquo;ve been involved in user experience and user interface design one way or another.
-                    </details>
+                    </details> -->
 
                 </details>
                 <details>
@@ -575,7 +665,7 @@
 
             </details>
 
-            <details>
+            <!-- <details>
                 <summary class="head1">
                     <h1 id="thisSite">This Site: Accessible-first</h1>
                     <p><em>2021&ndash;2025</em></p>
@@ -724,7 +814,7 @@
                 <p>Now that the main structure has been set up, I can focus on more (and more interactive) case studies. There are already two in the works.</p>
             </details>
 
-            </details>
+            </details> -->
 
             </section>
         </article>
