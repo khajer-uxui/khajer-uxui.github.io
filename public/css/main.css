@@ -437,6 +437,14 @@ a:hover, a:focus {
     color: #000;
 }
 
+a > img {
+    transition: filter 0.3s ease;
+}
+
+a:hover > img {
+    filter: brightness(0.8);
+}
+
 button {
     border-radius: var(--border-radius);
     display: inline-block;
@@ -656,7 +664,19 @@ summary:hover {
     /* background-color: #f08080; */
 }
 
- 
+
+summary.head1 p {
+    display: inline;
+    margin: 0;
+    float: right;
+}
+
+summary.head1::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 summary.head2 p {
     display: inline;
     margin: 0;
@@ -848,12 +868,14 @@ header div p a:hover, a:focus {
     padding-top: 1rem;
 }
 
-.triptych > div {
+/* .triptych > div {
     padding-bottom: 1rem;
-}
+} */
 
-.triptych > div > a > img {
-    box-shadow: var(--box-shadow);
+.triptych > a > img {
+    /* box-shadow: var(--box-shadow); */
+    border: 3px solid var(--color);
+    border-radius: 8px;
 }
 
 .look {
@@ -898,7 +920,7 @@ header div p a:hover, a:focus {
 
 .illoContainer {
     display: flex;
-    width: 90%;
+    width: 100%;
     justify-content: center;
 }
 
